@@ -1,0 +1,19 @@
+<div class="row-fluid">
+	<div class="span4"></div>
+	<div class="span5">
+		<div class="alert fade" ng-repeat="alert in alerts" bs-alert="alert"></div>
+		<form>
+			<legend>Endre passord</legend>
+			<label>Brukernavn</label>
+			<input value="{{getUsername()}}" type="text" disabled>
+			<label>Bekreft gammelt passord</label>
+			<input required ng-model="user.oldPass" type="password">
+			<label>Nytt passord</label>
+			<input required ng-model="user.newPass" type="password">
+			<label>Bekreft nytt passord</label>
+			<input required ng-model="user.newPassRepeated" type="password">
+			<button ng-disabled="form.$invalid" ng-click="changePassword()" class="btn btn-inverse">Endre passord</button>
+		</form>
+	</div>
+	<div class="span3"></div>
+</div>
