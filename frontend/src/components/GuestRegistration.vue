@@ -2,71 +2,28 @@
     <div>
         <h4 class="title is-4">Svar på invitasjonen</h4>
 
-        <article class="message is-info">
-            <div class="message-body">
-                Vennligst fyll ut påkrevde felter merket med (*)
-            </div>
-        </article>
-
         <div class="columns">
             <div class="column">
                 <div class="field">
-                    <label class="label">Fornavn *</label>
+                    <label class="label">Fullt navn</label>
                     <p class="control has-icons-left">
-                        <input v-model="guest.firstName"
-                               v-validate="'required|max:20'"
-                               name="firstname"
+                        <input v-model="guest.fullName"
+                               v-validate="'required|max:54'"
+                               name="fullname"
                                class="input"
-                               placeholder="Fornavn"/>
+                               placeholder="Fullt navn"/>
                         <span class="icon is-small is-left">
                         <i class="fa fa-user"></i>
                     </span>
-                        <span v-show="errors.has('firstname')"
+                        <span v-show="errors.has('fullname')"
                               class="help is-danger">
-                        {{errors.first('firstname')}}
+                        {{errors.first('fullname')}}
                     </span>
                     </p>
                 </div>
 
                 <div class="field">
-                    <label class="label">Etternavn *</label>
-                    <p class="control has-icons-left">
-                        <input v-model="guest.lastName"
-                               v-validate="'required|max:20'"
-                               name="lastname"
-                               class="input"
-                               placeholder="Etternavn"/>
-                        <span class="icon is-small is-left">
-                        <i class="fa fa-user"></i>
-                    </span>
-                        <span v-show="errors.has('lastname')"
-                              class="help is-danger">
-                        {{errors.first('lastname')}}
-                    </span>
-                    </p>
-                </div>
-
-                <div class="field">
-                    <label class="label">E-post</label>
-                    <p class="control has-icons-left">
-                        <input v-model="guest.email"
-                               v-validate="'email|max:40'"
-                               name="email"
-                               class="input"
-                               type="email"
-                               placeholder="E-post"/>
-                        <span class="icon is-small is-left">
-                        <i class="fa fa-envelope"></i>
-                    </span>
-                        <span v-show="errors.has('email')"
-                              class="help is-danger">
-                        {{errors.first('email')}}
-                    </span>
-                    </p>
-                </div>
-
-                <div class="field">
-                    <label class="label">Kommer *</label>
+                    <label class="label">Kommer</label>
                     <div class="control">
                         <label class="radio">
                             <input type="radio"
@@ -91,10 +48,10 @@
                 </div>
 
                 <div class="field">
-                    <label class="label">Annet</label>
+                    <label class="label">Annet (frivillig)</label>
                     <p class="control has-icons-left">
-                        <textarea v-model="guest.extraInfo"
-                                  name="otherInfo"
+                        <textarea v-model="guest.note"
+                                  name="note"
                                   class="textarea"
                                   placeholder="Eventuelle matallergier eller annet"></textarea>
                     </p>
@@ -103,68 +60,31 @@
 
             <div class="column">
                 <div class="field">
-                    <label class="label">Fornavn (*)</label>
+                    <label class="label">Fullt navn</label>
                     <p class="control has-icons-left">
-                        <input v-model="guest2.firstName"
-                               v-validate="'required|max:20'"
-                               name="firstname"
+                        <input v-model="guest2.fullName"
+                               v-validate="'max:54'"
+                               name="fullname2"
                                class="input"
-                               placeholder="Fornavn"/>
+                               placeholder="Fullt navn"/>
                         <span class="icon is-small is-left">
                         <i class="fa fa-user"></i>
                     </span>
-                        <span v-show="errors.has('firstname')"
+                        <span v-show="errors.has('fullname2')"
                               class="help is-danger">
-                        {{errors.first('firstname')}}
+                        {{errors.first('fullname2')}}
                     </span>
                     </p>
                 </div>
 
                 <div class="field">
-                    <label class="label">Etternavn (*)</label>
-                    <p class="control has-icons-left">
-                        <input v-model="guest2.lastName"
-                               v-validate="'required|max:20'"
-                               name="lastname"
-                               class="input"
-                               placeholder="Etternavn"/>
-                        <span class="icon is-small is-left">
-                        <i class="fa fa-user"></i>
-                    </span>
-                        <span v-show="errors.has('lastname')"
-                              class="help is-danger">
-                        {{errors.first('lastname')}}
-                    </span>
-                    </p>
-                </div>
-
-                <div class="field">
-                    <label class="label">E-post</label>
-                    <p class="control has-icons-left">
-                        <input v-model="guest2.email"
-                               v-validate="'email|max:40'"
-                               name="email"
-                               class="input"
-                               type="email"
-                               placeholder="E-post"/>
-                        <span class="icon is-small is-left">
-                        <i class="fa fa-envelope"></i>
-                    </span>
-                        <span v-show="errors.has('email')"
-                              class="help is-danger">
-                        {{errors.first('email')}}
-                    </span>
-                    </p>
-                </div>
-
-                <div class="field">
-                    <label class="label">Kommer (*)</label>
+                    <label class="label">Kommer</label>
                     <div class="control">
                         <label class="radio">
                             <input type="radio"
                                    value="yes"
                                    v-model="guest2.attending"
-                                   v-validate="'required'"
+                                   v-validate="requireAttendingValidation"
                                    name="attending2"/>
                             Ja
                         </label>
@@ -176,17 +96,17 @@
                             Nei
                         </label>
                     </div>
-                    <span v-show="errors.has('attending')"
+                    <span v-show="errors.has('attending2')"
                           class="help is-danger">
-                        {{errors.first('attending')}}
+                        {{errors.first('attending2')}}
                     </span>
                 </div>
 
                 <div class="field">
-                    <label class="label">Annet</label>
+                    <label class="label">Annet (frivillig)</label>
                     <p class="control has-icons-left">
-                        <textarea v-model="guest2.extraInfo"
-                                  name="otherInfo"
+                        <textarea v-model="guest2.note"
+                                  name="note2"
                                   class="textarea"
                                   placeholder="Eventuelle matallergier eller annet"></textarea>
                     </p>
@@ -201,10 +121,6 @@
                     class="button is-success">
                 Registrer svar
             </button>
-            <button @click="clearForm()"
-                    class="button is-text">
-                Avbryt
-            </button>
         </div>
     </div>
 </template>
@@ -215,18 +131,14 @@ export default {
     data () {
         return {
             guest: {
-                firstName: null,
-                lastName: null,
-                email: null,
+                fullName: null,
                 attending: null,
-                extraInfo: null
+                note: null
             },
             guest2: {
-                firstName: null,
-                lastName: null,
-                email: null,
+                fullName: null,
                 attending: null,
-                extraInfo: null
+                note: null
             }
         }
     },
@@ -234,9 +146,11 @@ export default {
         save () {
             console.log('save()')
             this.$validator.validateAll()
-        },
-        clearForm () {
-            console.log('clearForm()')
+        }
+    },
+    computed: {
+        requireAttendingValidation: function () {
+            return this.guest2.fullName ? 'required' : ''
         }
     }
 }
