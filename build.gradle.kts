@@ -77,6 +77,8 @@ tasks {
 
     val shadowJar: ShadowJar by tasks
     shadowJar.apply {
+        dependsOn(copyFrontEnd, jooqCodeGen)
+
         manifest {
             attributes["Implementation-Title"] = project.name
             attributes["Implementation-Version"] = version
