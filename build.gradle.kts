@@ -61,7 +61,7 @@ tasks {
                 database = Database().apply {
                     name = "org.jooq.util.postgres.PostgresDatabase"
                     includes = ".*"
-                    excludes = "schema_version"
+                    excludes = "flyway_schema_history"
                     inputSchema = "public"
                     isOutputSchemaToDefault = true
                 }
