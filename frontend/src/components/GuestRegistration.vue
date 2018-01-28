@@ -167,10 +167,10 @@ export default {
                 if (result) {
                     axios.post('api/guests', guestList([this.guest, this.guest2]))
                         .then(() => {
-                            console.log('Registered guests successfully')
+                            this.$snotify.success('Ditt svar er registrert')
                         })
                         .catch(error => {
-                            console.log('Registered guests failure')
+                            this.$snotify.error('Oops! Det oppstod en feil. Vennligst prøv på nytt')
                             console.log(error)
                         })
                 }

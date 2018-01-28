@@ -2,11 +2,17 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import VeeValidate, {Validator} from 'vee-validate'
 import nbNO from 'vee-validate/dist/locale/nb_NO'
+import Snotify, {SnotifyPosition} from 'vue-snotify'
 import HelloWorld from '@/components/HelloWorld'
 import GuestRegistration from '@/components/GuestRegistration'
 
 Vue.use(Router)
 Vue.use(VeeValidate)
+Vue.use(Snotify, {
+    toast: {
+        position: SnotifyPosition.centerTop
+    }
+})
 
 Validator.localize('nb_NO', nbNO)
 
