@@ -51,6 +51,7 @@
                     <label class="label">Annet (frivillig)</label>
                     <p class="control has-icons-left">
                         <textarea v-model="guest.note"
+                                  v-validate="'max:445'"
                                   name="note"
                                   class="textarea"
                                   placeholder="Eventuelle matallergier eller annet"></textarea>
@@ -106,6 +107,7 @@
                     <label class="label">Annet (frivillig)</label>
                     <p class="control has-icons-left">
                         <textarea v-model="guest2.note"
+                                  v-validate="'max:445'"
                                   name="note2"
                                   class="textarea"
                                   placeholder="Eventuelle matallergier eller annet"></textarea>
@@ -126,6 +128,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
     name: 'guest-registration',
     data () {
@@ -144,8 +148,33 @@ export default {
     },
     methods: {
         save () {
-            console.log('save()')
-            this.$validator.validateAll()
+            function guestList (guests) {
+                let list = []
+                guests.map(it => {
+                    if (it.fullName) {
+                        list.push({
+                            fullName: it.fullName,
+                            attending: it.attending === 'yes',
+                            note: it.note
+                        })
+                    }
+                })
+
+                return list
+            }
+
+            this.$validator.validateAll().then((result) => {
+                if (result) {
+                    axios.post('api/guests', guestList([this.guest, this.guest2]))
+                        .then(() => {
+                            console.log('Registered guests successfully')
+                        })
+                        .catch(error => {
+                            console.log('Registered guests failure')
+                            console.log(error)
+                        })
+                }
+            })
         }
     },
     computed: {
