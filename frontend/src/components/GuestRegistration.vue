@@ -167,6 +167,17 @@ export default {
                 if (result) {
                     axios.post('api/guests', guestList([this.guest, this.guest2]))
                         .then(() => {
+                            this.guest = {
+                                fullName: null,
+                                attending: null,
+                                note: null
+                            }
+                            this.guest2 = {
+                                fullName: null,
+                                attending: null,
+                                note: null
+                            }
+                            this.$nextTick(() => this.$validator.reset())
                             this.$snotify.success('Ditt svar er registrert')
                         })
                         .catch(error => {
