@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger
 import org.flywaydb.core.Flyway
 import spark.Spark.*
 import java.net.URI
+import java.net.URLEncoder
 import javax.sql.DataSource
 
 fun main(args: Array<String>) {
@@ -33,9 +34,11 @@ fun main(args: Array<String>) {
         val secureProtocol = herokuOriginatingProtocol?.equals("https") ?: true
 
         if (!secureProtocol) {
+            logger.info("Unsecure protocol used")
             val url = request.url()
             val secureUrl = url.replaceRange(0, 4, "https")
             val queryString = request.queryString()
+            logger.info("Secure URL $secureUrl query string $queryString")
 
             when {
                 queryString.isNullOrBlank() -> response.redirect(secureUrl)
@@ -57,8 +60,9 @@ fun main(args: Array<String>) {
             if (indexPage != null) {
                 indexPageRepository.save(indexPage)
                 response.status(201)
+            } else {
+                response.status(400)
             }
-            else response.status(400)
         })
 
         post("/guests", { request, response ->
@@ -75,10 +79,14 @@ fun main(args: Array<String>) {
                 else -> response.status(400)
             }
         })
+
+        after("/*", { _, response ->
+            response.type("application/json")
+        })
     })
 
-    after("/*", { _, response ->
-        response.type("application/json")
+    get("/*", { request, response ->
+        response.redirect("/?unknown_api_path=${encodeURL(request.uri())}")
     })
 }
 
@@ -89,3 +97,5 @@ fun migrateDatabase(dataSource: DataSource) {
     flyway.dataSource = dataSource
     flyway.migrate()
 }
+
+private fun encodeURL(uri: String) = URLEncoder.encode(uri, "UTF-8")

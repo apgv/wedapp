@@ -10,6 +10,7 @@ import GiftList from '@/components/GiftList'
 import Directions from '@/components/Directions'
 import Accommodations from '@/components/Accommodations'
 import Contact from '@/components/Contact'
+import ExternalRouting from '@/components/ExternalRouting'
 
 Vue.use(Router)
 Vue.use(VeeValidate)
@@ -22,9 +23,10 @@ Vue.use(Snotify, {
 Validator.localize('nb_NO', nbNO)
 
 export default new Router({
+    mode: 'history',
     routes: [
         {
-            path: '/',
+            path: '/index',
             name: 'Index',
             component: Index
         },
@@ -59,8 +61,17 @@ export default new Router({
             component: Contact
         },
         {
+            path: '/externalrouting',
+            name: 'ExternalRouting',
+            component: ExternalRouting
+        },
+        {
+            path: '/',
+            redirect: '/externalrouting'
+        },
+        {
             path: '*',
-            redirect: '/'
+            redirect: '/externalrouting'
         }
     ]
 })
