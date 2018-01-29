@@ -5,6 +5,7 @@ package codes.foobar.wedapp.jooq;
 
 
 import codes.foobar.wedapp.jooq.tables.Guest;
+import codes.foobar.wedapp.jooq.tables.IndexPage;
 
 import javax.annotation.Generated;
 
@@ -26,4 +27,9 @@ public class Tables {
      * The table <code>guest</code>.
      */
     public static final Guest GUEST = codes.foobar.wedapp.jooq.tables.Guest.GUEST;
+
+    /**
+     * The table <code>index_page</code>.
+     */
+    public static final IndexPage INDEX_PAGE = codes.foobar.wedapp.jooq.tables.IndexPage.INDEX_PAGE;
 }

@@ -5,6 +5,7 @@ package codes.foobar.wedapp.jooq;
 
 
 import codes.foobar.wedapp.jooq.tables.Guest;
+import codes.foobar.wedapp.jooq.tables.IndexPage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +32,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultSchema extends SchemaImpl {
 
-    private static final long serialVersionUID = 1128561659;
+    private static final long serialVersionUID = -417929166;
 
     /**
      * The reference instance of <code></code>
@@ -42,6 +43,11 @@ public class DefaultSchema extends SchemaImpl {
      * The table <code>guest</code>.
      */
     public final Guest GUEST = codes.foobar.wedapp.jooq.tables.Guest.GUEST;
+
+    /**
+     * The table <code>index_page</code>.
+     */
+    public final IndexPage INDEX_PAGE = codes.foobar.wedapp.jooq.tables.IndexPage.INDEX_PAGE;
 
     /**
      * No further instances allowed
@@ -68,7 +74,8 @@ public class DefaultSchema extends SchemaImpl {
 
     private final List<Sequence<?>> getSequences0() {
         return Arrays.<Sequence<?>>asList(
-            Sequences.GUEST_ID_SEQ);
+            Sequences.GUEST_ID_SEQ,
+            Sequences.INDEX_PAGE_ID_SEQ);
     }
 
     @Override
@@ -80,6 +87,7 @@ public class DefaultSchema extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            Guest.GUEST);
+            Guest.GUEST,
+            IndexPage.INDEX_PAGE);
     }
 }

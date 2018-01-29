@@ -5,6 +5,7 @@ package codes.foobar.wedapp.jooq;
 
 
 import codes.foobar.wedapp.jooq.tables.Guest;
+import codes.foobar.wedapp.jooq.tables.IndexPage;
 
 import javax.annotation.Generated;
 
@@ -31,6 +32,7 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index GUEST_PKEY = Indexes0.GUEST_PKEY;
+    public static final Index INDEX_PAGE_PKEY = Indexes0.INDEX_PAGE_PKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -38,5 +40,6 @@ public class Indexes {
 
     private static class Indexes0 extends AbstractKeys {
         public static Index GUEST_PKEY = createIndex("guest_pkey", Guest.GUEST, new OrderField[] { Guest.GUEST.ID }, true);
+        public static Index INDEX_PAGE_PKEY = createIndex("index_page_pkey", IndexPage.INDEX_PAGE, new OrderField[] { IndexPage.INDEX_PAGE.ID }, true);
     }
 }

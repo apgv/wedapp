@@ -5,7 +5,9 @@ package codes.foobar.wedapp.jooq;
 
 
 import codes.foobar.wedapp.jooq.tables.Guest;
+import codes.foobar.wedapp.jooq.tables.IndexPage;
 import codes.foobar.wedapp.jooq.tables.records.GuestRecord;
+import codes.foobar.wedapp.jooq.tables.records.IndexPageRecord;
 
 import javax.annotation.Generated;
 
@@ -33,12 +35,14 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<GuestRecord, Integer> IDENTITY_GUEST = Identities0.IDENTITY_GUEST;
+    public static final Identity<IndexPageRecord, Integer> IDENTITY_INDEX_PAGE = Identities0.IDENTITY_INDEX_PAGE;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<GuestRecord> GUEST_PKEY = UniqueKeys0.GUEST_PKEY;
+    public static final UniqueKey<IndexPageRecord> INDEX_PAGE_PKEY = UniqueKeys0.INDEX_PAGE_PKEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -51,9 +55,11 @@ public class Keys {
 
     private static class Identities0 extends AbstractKeys {
         public static Identity<GuestRecord, Integer> IDENTITY_GUEST = createIdentity(Guest.GUEST, Guest.GUEST.ID);
+        public static Identity<IndexPageRecord, Integer> IDENTITY_INDEX_PAGE = createIdentity(IndexPage.INDEX_PAGE, IndexPage.INDEX_PAGE.ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<GuestRecord> GUEST_PKEY = createUniqueKey(Guest.GUEST, "guest_pkey", Guest.GUEST.ID);
+        public static final UniqueKey<IndexPageRecord> INDEX_PAGE_PKEY = createUniqueKey(IndexPage.INDEX_PAGE, "index_page_pkey", IndexPage.INDEX_PAGE.ID);
     }
 }

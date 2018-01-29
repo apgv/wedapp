@@ -5,6 +5,8 @@ import codes.foobar.wedapp.guest.GuestRegistration
 import codes.foobar.wedapp.guest.GuestRepository
 import codes.foobar.wedapp.helper.DbHelper
 import codes.foobar.wedapp.helper.JsonHelper
+import codes.foobar.wedapp.index.IndexPage
+import codes.foobar.wedapp.index.IndexPageRepository
 import com.squareup.moshi.Types
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -24,6 +26,7 @@ fun main(args: Array<String>) {
     migrateDatabase(dbHelper.dataSource)
 
     val guestRepository = GuestRepository(dbHelper)
+    val indexPageRepository = IndexPageRepository(dbHelper)
 
     before("/*", { request, response ->
         val herokuOriginatingProtocol = request.headers("X-Forwarded-Proto")
@@ -42,6 +45,22 @@ fun main(args: Array<String>) {
     })
 
     path("api", {
+        get("/indexpage", { _, _ ->
+            val indexPage = indexPageRepository.find()
+            JsonHelper.moshi.adapter(IndexPage::class.java).toJson(indexPage)
+        })
+
+        post("/indexpage", { request, response ->
+            val jsonAdapter = JsonHelper.moshi.adapter(IndexPage::class.java)
+            val indexPage = jsonAdapter.fromJson(request.body())
+
+            if (indexPage != null) {
+                indexPageRepository.save(indexPage)
+                response.status(201)
+            }
+            else response.status(400)
+        })
+
         post("/guests", { request, response ->
             val parameterizedType = Types.newParameterizedType(List::class.java, GuestRegistration::class.java)
             val jsonAdapter = JsonHelper.moshi.adapter<List<GuestRegistration>>(parameterizedType)

@@ -27,4 +27,9 @@ public class Sequences {
      * The sequence <code>guest_id_seq</code>
      */
     public static final Sequence<Integer> GUEST_ID_SEQ = new SequenceImpl<Integer>("guest_id_seq", DefaultSchema.DEFAULT_SCHEMA, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+
+    /**
+     * The sequence <code>index_page_id_seq</code>
+     */
+    public static final Sequence<Integer> INDEX_PAGE_ID_SEQ = new SequenceImpl<Integer>("index_page_id_seq", DefaultSchema.DEFAULT_SCHEMA, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
 }
