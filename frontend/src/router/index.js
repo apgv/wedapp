@@ -4,6 +4,7 @@ import VeeValidate, {Validator} from 'vee-validate'
 import nbNO from 'vee-validate/dist/locale/nb_NO'
 import Snotify, {SnotifyPosition} from 'vue-snotify'
 import Index from '@/components/Index'
+import IndexEditor from '@/components/IndexEditor'
 import GuestRegistration from '@/components/GuestRegistration'
 import GiftList from '@/components/GiftList'
 import Directions from '@/components/Directions'
@@ -26,7 +27,13 @@ export default new Router({
             path: '/',
             name: 'Index',
             component: Index
-        }, {
+        },
+        {
+            path: '/indexeditor',
+            name: 'IndexEditor',
+            component: IndexEditor
+        },
+        {
             path: '/guestregistration',
             name: 'GuestRegistration',
             component: GuestRegistration
