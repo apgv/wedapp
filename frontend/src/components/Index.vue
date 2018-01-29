@@ -23,9 +23,18 @@ export default {
                     this.page = response.data
                 })
                 .catch(error => {
-                    this.$snotify.error('Oops! Det oppstod en feil ved henting av data')
-                    console.log(error)
+                    if (error === 'Network Error') {
+                        console.log('Network Error')
+                    } else {
+                        console.log(error)
+                        this.$snotify.error('Oops! Det oppstod en feil ved henting av data')
+                    }
                 })
+        }
+    },
+    beforeCreate () {
+        if (process.env.NODE_ENV === 'production' && location.protocol === 'http:') {
+            window.location.reload(true)
         }
     },
     created () {
