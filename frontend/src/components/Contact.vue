@@ -1,5 +1,9 @@
 <template>
-    <div>Contact</div>
+    <div>
+        <h4 class="title is-4">Kontakt oss</h4>
+
+        Under utarbeidelse.
+    </div>
 </template>
 
 <script>
