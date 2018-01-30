@@ -16,16 +16,16 @@
         </article>
         <div class="field is-grouped">
             <div class="control">
-                <button class="button is-danger"
-                        @click="revertChanges()">
-                    Angre endringer
-                </button>
-            </div>
-            <div class="control">
                 <button class="button is-primary"
                         @click="save()">
                     Lagre endring
                 </button>
+            </div>
+            <div class="control">
+                <router-link :to="'/index'"
+                             class="button is-text">
+                    Til forsiden
+                </router-link>
             </div>
         </div>
 
@@ -75,9 +75,6 @@ export default {
                     this.$snotify.error('Oops! Det oppstod en feil ved lagring av data')
                     console.log(error)
                 })
-        },
-        revertChanges () {
-            this.fetch()
         }
     },
     created () {

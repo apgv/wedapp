@@ -15,7 +15,7 @@
                 <div class="navbar-start">
                     <div class="navbar-item">
                         <div class="navbar-dropdown">
-                            <router-link :to="'/'"
+                            <router-link :to="'/index'"
                                          @click.native="toggleMobileMenu()"
                                          class="navbar-item">
                                 Forside
@@ -63,7 +63,7 @@
 
         <div class="navbar-menu">
             <div class="navbar-start">
-                <router-link :to="'/'"
+                <router-link :to="'/index'"
                              class="navbar-item">
                     Forside
                 </router-link>
