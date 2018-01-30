@@ -14,6 +14,11 @@ import AppMenu from './components/AppMenu'
 
 export default {
     components: {AppMenu},
-    name: 'App'
+    name: 'App',
+    beforeCreate: function () {
+        if (process.env.NODE_ENV === 'production' && window.location.protocol === 'http:') {
+            window.location.reload(true)
+        }
+    }
 }
 </script>
