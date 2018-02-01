@@ -4,6 +4,7 @@
 package codes.foobar.wedapp.jooq;
 
 
+import codes.foobar.wedapp.jooq.tables.Accommodation;
 import codes.foobar.wedapp.jooq.tables.Direction;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
@@ -23,6 +24,11 @@ import javax.annotation.Generated;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>accommodation</code>.
+     */
+    public static final Accommodation ACCOMMODATION = codes.foobar.wedapp.jooq.tables.Accommodation.ACCOMMODATION;
 
     /**
      * The table <code>direction</code>.

@@ -4,9 +4,11 @@
 package codes.foobar.wedapp.jooq;
 
 
+import codes.foobar.wedapp.jooq.tables.Accommodation;
 import codes.foobar.wedapp.jooq.tables.Direction;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
+import codes.foobar.wedapp.jooq.tables.records.AccommodationRecord;
 import codes.foobar.wedapp.jooq.tables.records.DirectionRecord;
 import codes.foobar.wedapp.jooq.tables.records.GuestRecord;
 import codes.foobar.wedapp.jooq.tables.records.IndexPageRecord;
@@ -36,6 +38,7 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<AccommodationRecord, Integer> IDENTITY_ACCOMMODATION = Identities0.IDENTITY_ACCOMMODATION;
     public static final Identity<DirectionRecord, Integer> IDENTITY_DIRECTION = Identities0.IDENTITY_DIRECTION;
     public static final Identity<GuestRecord, Integer> IDENTITY_GUEST = Identities0.IDENTITY_GUEST;
     public static final Identity<IndexPageRecord, Integer> IDENTITY_INDEX_PAGE = Identities0.IDENTITY_INDEX_PAGE;
@@ -44,6 +47,7 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<AccommodationRecord> ACCOMMODATION_PKEY = UniqueKeys0.ACCOMMODATION_PKEY;
     public static final UniqueKey<DirectionRecord> DIRECTION_PKEY = UniqueKeys0.DIRECTION_PKEY;
     public static final UniqueKey<GuestRecord> GUEST_PKEY = UniqueKeys0.GUEST_PKEY;
     public static final UniqueKey<IndexPageRecord> INDEX_PAGE_PKEY = UniqueKeys0.INDEX_PAGE_PKEY;
@@ -58,12 +62,14 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 extends AbstractKeys {
+        public static Identity<AccommodationRecord, Integer> IDENTITY_ACCOMMODATION = createIdentity(Accommodation.ACCOMMODATION, Accommodation.ACCOMMODATION.ID);
         public static Identity<DirectionRecord, Integer> IDENTITY_DIRECTION = createIdentity(Direction.DIRECTION, Direction.DIRECTION.ID);
         public static Identity<GuestRecord, Integer> IDENTITY_GUEST = createIdentity(Guest.GUEST, Guest.GUEST.ID);
         public static Identity<IndexPageRecord, Integer> IDENTITY_INDEX_PAGE = createIdentity(IndexPage.INDEX_PAGE, IndexPage.INDEX_PAGE.ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
+        public static final UniqueKey<AccommodationRecord> ACCOMMODATION_PKEY = createUniqueKey(Accommodation.ACCOMMODATION, "accommodation_pkey", Accommodation.ACCOMMODATION.ID);
         public static final UniqueKey<DirectionRecord> DIRECTION_PKEY = createUniqueKey(Direction.DIRECTION, "direction_pkey", Direction.DIRECTION.ID);
         public static final UniqueKey<GuestRecord> GUEST_PKEY = createUniqueKey(Guest.GUEST, "guest_pkey", Guest.GUEST.ID);
         public static final UniqueKey<IndexPageRecord> INDEX_PAGE_PKEY = createUniqueKey(IndexPage.INDEX_PAGE, "index_page_pkey", IndexPage.INDEX_PAGE.ID);

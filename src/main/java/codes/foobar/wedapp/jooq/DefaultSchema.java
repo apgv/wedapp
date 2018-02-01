@@ -4,6 +4,7 @@
 package codes.foobar.wedapp.jooq;
 
 
+import codes.foobar.wedapp.jooq.tables.Accommodation;
 import codes.foobar.wedapp.jooq.tables.Direction;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
@@ -33,12 +34,17 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultSchema extends SchemaImpl {
 
-    private static final long serialVersionUID = -1132840898;
+    private static final long serialVersionUID = 27861523;
 
     /**
      * The reference instance of <code></code>
      */
     public static final DefaultSchema DEFAULT_SCHEMA = new DefaultSchema();
+
+    /**
+     * The table <code>accommodation</code>.
+     */
+    public final Accommodation ACCOMMODATION = codes.foobar.wedapp.jooq.tables.Accommodation.ACCOMMODATION;
 
     /**
      * The table <code>direction</code>.
@@ -80,6 +86,7 @@ public class DefaultSchema extends SchemaImpl {
 
     private final List<Sequence<?>> getSequences0() {
         return Arrays.<Sequence<?>>asList(
+            Sequences.ACCOMMODATION_ID_SEQ,
             Sequences.DIRECTION_ID_SEQ,
             Sequences.GUEST_ID_SEQ,
             Sequences.INDEX_PAGE_ID_SEQ);
@@ -94,6 +101,7 @@ public class DefaultSchema extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            Accommodation.ACCOMMODATION,
             Direction.DIRECTION,
             Guest.GUEST,
             IndexPage.INDEX_PAGE);
