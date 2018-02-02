@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class GuestRecord extends UpdatableRecordImpl<GuestRecord> implements Record5<Integer, String, Boolean, String, OffsetDateTime> {
 
-    private static final long serialVersionUID = 2006664241;
+    private static final long serialVersionUID = -1501613903;
 
     /**
      * Setter for <code>guest.id</code>.
@@ -89,16 +89,16 @@ public class GuestRecord extends UpdatableRecordImpl<GuestRecord> implements Rec
     }
 
     /**
-     * Setter for <code>guest.created_date</code>.
+     * Setter for <code>guest.last_updated</code>.
      */
-    public void setCreatedDate(OffsetDateTime value) {
+    public void setLastUpdated(OffsetDateTime value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>guest.created_date</code>.
+     * Getter for <code>guest.last_updated</code>.
      */
-    public OffsetDateTime getCreatedDate() {
+    public OffsetDateTime getLastUpdated() {
         return (OffsetDateTime) get(4);
     }
 
@@ -171,7 +171,7 @@ public class GuestRecord extends UpdatableRecordImpl<GuestRecord> implements Rec
      */
     @Override
     public Field<OffsetDateTime> field5() {
-        return Guest.GUEST.CREATED_DATE;
+        return Guest.GUEST.LAST_UPDATED;
     }
 
     /**
@@ -211,7 +211,7 @@ public class GuestRecord extends UpdatableRecordImpl<GuestRecord> implements Rec
      */
     @Override
     public OffsetDateTime component5() {
-        return getCreatedDate();
+        return getLastUpdated();
     }
 
     /**
@@ -251,7 +251,7 @@ public class GuestRecord extends UpdatableRecordImpl<GuestRecord> implements Rec
      */
     @Override
     public OffsetDateTime value5() {
-        return getCreatedDate();
+        return getLastUpdated();
     }
 
     /**
@@ -295,7 +295,7 @@ public class GuestRecord extends UpdatableRecordImpl<GuestRecord> implements Rec
      */
     @Override
     public GuestRecord value5(OffsetDateTime value) {
-        setCreatedDate(value);
+        setLastUpdated(value);
         return this;
     }
 
@@ -326,13 +326,13 @@ public class GuestRecord extends UpdatableRecordImpl<GuestRecord> implements Rec
     /**
      * Create a detached, initialised GuestRecord
      */
-    public GuestRecord(Integer id, String fullName, Boolean attending, String note, OffsetDateTime createdDate) {
+    public GuestRecord(Integer id, String fullName, Boolean attending, String note, OffsetDateTime lastUpdated) {
         super(Guest.GUEST);
 
         set(0, id);
         set(1, fullName);
         set(2, attending);
         set(3, note);
-        set(4, createdDate);
+        set(4, lastUpdated);
     }
 }

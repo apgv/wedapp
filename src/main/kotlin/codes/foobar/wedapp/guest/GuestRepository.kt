@@ -18,7 +18,7 @@ class GuestRepository(private val dbHelper: DbHelper) {
                         GUEST.FULL_NAME,
                         GUEST.ATTENDING,
                         GUEST.NOTE,
-                        GUEST.CREATED_DATE
+                        GUEST.LAST_UPDATED
                 ).values(
                         dslContext.nextval(GUEST_ID_SEQ).toInt(),
                         it.fullName,

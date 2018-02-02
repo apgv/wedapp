@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Guest extends TableImpl<GuestRecord> {
 
-    private static final long serialVersionUID = 527370470;
+    private static final long serialVersionUID = 787661357;
 
     /**
      * The reference instance of <code>guest</code>
@@ -76,9 +76,9 @@ public class Guest extends TableImpl<GuestRecord> {
     public final TableField<GuestRecord, String> NOTE = createField("note", org.jooq.impl.SQLDataType.VARCHAR(445), this, "");
 
     /**
-     * The column <code>guest.created_date</code>.
+     * The column <code>guest.last_updated</code>.
      */
-    public final TableField<GuestRecord, OffsetDateTime> CREATED_DATE = createField("created_date", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false), this, "");
+    public final TableField<GuestRecord, OffsetDateTime> LAST_UPDATED = createField("last_updated", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.nullable(false), this, "");
 
     /**
      * Create a <code>guest</code> table reference
