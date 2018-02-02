@@ -23,22 +23,18 @@
             </div>
         </div>
 
-        <article v-if="!hasContacts"
-                 class="message is-link">
-            <div class="message-header">
-                <p>Info</p>
-            </div>
-            <div class="message-body">
-                Det er ikke lagt til kontaktinformasjon.
-            </div>
-        </article>
+        <info-message :show="!hasContacts"
+                      :message="'Det er ikke lagt til kontaktinformasjon.'">
+        </info-message>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import InfoMessage from './InfoMessage'
 
 export default {
+    components: {InfoMessage},
     name: 'contact',
     data () {
         return {

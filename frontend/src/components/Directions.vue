@@ -10,22 +10,18 @@
             <div v-html="direction.content"></div>
         </div>
 
-        <article v-if="!hasDirections"
-                 class="message is-link">
-            <div class="message-header">
-                <p>Info</p>
-            </div>
-            <div class="message-body">
-                Det er ikke lagt til noen veibeskrivelser.
-            </div>
-        </article>
+        <info-message :show="!hasDirections"
+                      :message="'Det er ikke lagt til noen veibeskrivelser.'">
+        </info-message>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import InfoMessage from './InfoMessage'
 
 export default {
+    components: {InfoMessage},
     name: 'directions',
     data () {
         return {
