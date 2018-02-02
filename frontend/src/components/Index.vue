@@ -1,13 +1,18 @@
 <template>
     <div>
         <div class="content" v-html="page.content"></div>
+        <info-message :show="page.content===null"
+                      :message="'Det er ikke lagt til innhold.'">
+        </info-message>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import InfoMessage from './InfoMessage'
 
 export default {
+    components: {InfoMessage},
     name: 'index',
     data () {
         return {
