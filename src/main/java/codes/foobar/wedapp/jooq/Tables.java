@@ -5,6 +5,7 @@ package codes.foobar.wedapp.jooq;
 
 
 import codes.foobar.wedapp.jooq.tables.Accommodation;
+import codes.foobar.wedapp.jooq.tables.Contact;
 import codes.foobar.wedapp.jooq.tables.Direction;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
@@ -29,6 +30,11 @@ public class Tables {
      * The table <code>accommodation</code>.
      */
     public static final Accommodation ACCOMMODATION = codes.foobar.wedapp.jooq.tables.Accommodation.ACCOMMODATION;
+
+    /**
+     * The table <code>contact</code>.
+     */
+    public static final Contact CONTACT = codes.foobar.wedapp.jooq.tables.Contact.CONTACT;
 
     /**
      * The table <code>direction</code>.

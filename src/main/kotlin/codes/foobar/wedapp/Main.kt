@@ -3,6 +3,8 @@ package codes.foobar.wedapp
 import codes.foobar.wedapp.accommodation.Accommodation
 import codes.foobar.wedapp.accommodation.AccommodationRepository
 import codes.foobar.wedapp.config.HerokuPostgresConfig
+import codes.foobar.wedapp.contact.Contact
+import codes.foobar.wedapp.contact.ContactRepository
 import codes.foobar.wedapp.direction.Direction
 import codes.foobar.wedapp.direction.DirectionsRepository
 import codes.foobar.wedapp.guest.GuestRegistration
@@ -34,6 +36,7 @@ fun main(args: Array<String>) {
     val indexPageRepository = IndexPageRepository(dbHelper)
     val directionsRepository = DirectionsRepository(dbHelper)
     val accommodationRepository = AccommodationRepository(dbHelper)
+    val contactRepository = ContactRepository(dbHelper)
 
     before("/*", { request, response ->
         val herokuOriginatingProtocol = request.headers("X-Forwarded-Proto")
@@ -98,6 +101,13 @@ fun main(args: Array<String>) {
             val jsonAdapter = JsonHelper.moshi.adapter<List<Accommodation>>(parameterizedType)
             val accommodations = accommodationRepository.findAll()
             jsonAdapter.toJson(accommodations)
+        })
+
+        get("/contacts", { _, _ ->
+            val parameterizedType = Types.newParameterizedType(List::class.java, Contact::class.java)
+            val jsonAdapter = JsonHelper.moshi.adapter<List<Contact>>(parameterizedType)
+            val contacts = contactRepository.findAll()
+            jsonAdapter.toJson(contacts)
         })
 
         after("/*", { _, response ->

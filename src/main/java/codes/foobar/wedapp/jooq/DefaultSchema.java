@@ -5,6 +5,7 @@ package codes.foobar.wedapp.jooq;
 
 
 import codes.foobar.wedapp.jooq.tables.Accommodation;
+import codes.foobar.wedapp.jooq.tables.Contact;
 import codes.foobar.wedapp.jooq.tables.Direction;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
@@ -34,7 +35,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultSchema extends SchemaImpl {
 
-    private static final long serialVersionUID = 27861523;
+    private static final long serialVersionUID = 642348446;
 
     /**
      * The reference instance of <code></code>
@@ -45,6 +46,11 @@ public class DefaultSchema extends SchemaImpl {
      * The table <code>accommodation</code>.
      */
     public final Accommodation ACCOMMODATION = codes.foobar.wedapp.jooq.tables.Accommodation.ACCOMMODATION;
+
+    /**
+     * The table <code>contact</code>.
+     */
+    public final Contact CONTACT = codes.foobar.wedapp.jooq.tables.Contact.CONTACT;
 
     /**
      * The table <code>direction</code>.
@@ -87,6 +93,7 @@ public class DefaultSchema extends SchemaImpl {
     private final List<Sequence<?>> getSequences0() {
         return Arrays.<Sequence<?>>asList(
             Sequences.ACCOMMODATION_ID_SEQ,
+            Sequences.CONTACT_ID_SEQ,
             Sequences.DIRECTION_ID_SEQ,
             Sequences.GUEST_ID_SEQ,
             Sequences.INDEX_PAGE_ID_SEQ);
@@ -102,6 +109,7 @@ public class DefaultSchema extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Accommodation.ACCOMMODATION,
+            Contact.CONTACT,
             Direction.DIRECTION,
             Guest.GUEST,
             IndexPage.INDEX_PAGE);
