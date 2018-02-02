@@ -4,12 +4,13 @@ import codes.foobar.wedapp.helper.DbHelper
 import codes.foobar.wedapp.helper.JavaTimeHelper
 import codes.foobar.wedapp.jooq.Sequences
 import codes.foobar.wedapp.jooq.tables.IndexPage.INDEX_PAGE
+import org.jooq.Record
 import org.jooq.TransactionalRunnable
 
 class IndexPageRepository(private val dbHelper: DbHelper) {
 
     fun find(): IndexPage {
-        return dbHelper.dslContext()
+        val result = dbHelper.dslContext()
                 .select(
                         INDEX_PAGE.ID,
                         INDEX_PAGE.CONTENT,
@@ -17,13 +18,11 @@ class IndexPageRepository(private val dbHelper: DbHelper) {
                 )
                 .from(INDEX_PAGE)
                 .fetchOne()
-                .map {
-                    IndexPage(
-                            id = it[INDEX_PAGE.ID],
-                            content = it[INDEX_PAGE.CONTENT],
-                            updatedDateTime = it[INDEX_PAGE.LAST_UPDATED].toZonedDateTime()
-                    )
-                }
+
+        return when {
+            result != null -> mapToIndexPage(result)
+            else -> IndexPage()
+        }
     }
 
     fun save(indexPage: IndexPage) {
@@ -52,4 +51,10 @@ class IndexPageRepository(private val dbHelper: DbHelper) {
         })
     }
 
+    private fun mapToIndexPage(record: Record) =
+            IndexPage(
+                    id = record[INDEX_PAGE.ID],
+                    content = record[INDEX_PAGE.CONTENT],
+                    updatedDateTime = record[INDEX_PAGE.LAST_UPDATED].toZonedDateTime()
+            )
 }

@@ -1,7 +1,11 @@
 <template>
     <div>
-        <div class="content" v-html="page.content"></div>
-        <info-message :show="page.content===null"
+        <div v-if="hasPageContent"
+             v-html="page.content"
+             class="content">
+        </div>
+
+        <info-message :show="!hasPageContent"
                       :message="'Det er ikke lagt til innhold.'">
         </info-message>
     </div>
@@ -31,6 +35,11 @@ export default {
                     this.$snotify.error('Oops! Det oppstod en feil ved henting av data')
                     console.log(error)
                 })
+        }
+    },
+    computed: {
+        hasPageContent: function () {
+            return this.page.content
         }
     },
     created () {
