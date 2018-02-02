@@ -59,7 +59,7 @@ export default {
     },
     computed: {
         hasContacts: function () {
-            return this.contacts.length > 0;
+            return this.contacts.length > 0
         }
     },
     created () {
