@@ -7,6 +7,8 @@ import codes.foobar.wedapp.contact.Contact
 import codes.foobar.wedapp.contact.ContactRepository
 import codes.foobar.wedapp.direction.Direction
 import codes.foobar.wedapp.direction.DirectionsRepository
+import codes.foobar.wedapp.gift.Gift
+import codes.foobar.wedapp.gift.GiftRepository
 import codes.foobar.wedapp.guest.GuestRegistration
 import codes.foobar.wedapp.guest.GuestRepository
 import codes.foobar.wedapp.helper.DbHelper
@@ -33,6 +35,7 @@ fun main(args: Array<String>) {
     migrateDatabase(dbHelper.dataSource)
 
     val guestRepository = GuestRepository(dbHelper)
+    val giftRepository = GiftRepository(dbHelper)
     val indexPageRepository = IndexPageRepository(dbHelper)
     val directionsRepository = DirectionsRepository(dbHelper)
     val accommodationRepository = AccommodationRepository(dbHelper)
@@ -87,6 +90,13 @@ fun main(args: Array<String>) {
                 }
                 else -> response.status(400)
             }
+        })
+
+        get("/gifts", { _, _ ->
+            val parameterizedType = Types.newParameterizedType(List::class.java, Gift::class.java)
+            val jsonAdapter = JsonHelper.moshi.adapter<List<Gift>>(parameterizedType)
+            val gifts = giftRepository.findAll()
+            jsonAdapter.toJson(gifts)
         })
 
         get("/directions", { _, _ ->

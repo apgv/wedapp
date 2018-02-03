@@ -7,6 +7,7 @@ package codes.foobar.wedapp.jooq;
 import codes.foobar.wedapp.jooq.tables.Accommodation;
 import codes.foobar.wedapp.jooq.tables.Contact;
 import codes.foobar.wedapp.jooq.tables.Direction;
+import codes.foobar.wedapp.jooq.tables.Gift;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
 
@@ -35,7 +36,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultSchema extends SchemaImpl {
 
-    private static final long serialVersionUID = 642348446;
+    private static final long serialVersionUID = -628162043;
 
     /**
      * The reference instance of <code></code>
@@ -56,6 +57,11 @@ public class DefaultSchema extends SchemaImpl {
      * The table <code>direction</code>.
      */
     public final Direction DIRECTION = codes.foobar.wedapp.jooq.tables.Direction.DIRECTION;
+
+    /**
+     * The table <code>gift</code>.
+     */
+    public final Gift GIFT = codes.foobar.wedapp.jooq.tables.Gift.GIFT;
 
     /**
      * The table <code>guest</code>.
@@ -95,6 +101,7 @@ public class DefaultSchema extends SchemaImpl {
             Sequences.ACCOMMODATION_ID_SEQ,
             Sequences.CONTACT_ID_SEQ,
             Sequences.DIRECTION_ID_SEQ,
+            Sequences.GIFT_ID_SEQ,
             Sequences.GUEST_ID_SEQ,
             Sequences.INDEX_PAGE_ID_SEQ);
     }
@@ -111,6 +118,7 @@ public class DefaultSchema extends SchemaImpl {
             Accommodation.ACCOMMODATION,
             Contact.CONTACT,
             Direction.DIRECTION,
+            Gift.GIFT,
             Guest.GUEST,
             IndexPage.INDEX_PAGE);
     }

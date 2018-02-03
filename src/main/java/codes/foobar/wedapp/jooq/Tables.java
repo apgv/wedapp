@@ -7,6 +7,7 @@ package codes.foobar.wedapp.jooq;
 import codes.foobar.wedapp.jooq.tables.Accommodation;
 import codes.foobar.wedapp.jooq.tables.Contact;
 import codes.foobar.wedapp.jooq.tables.Direction;
+import codes.foobar.wedapp.jooq.tables.Gift;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
 
@@ -40,6 +41,11 @@ public class Tables {
      * The table <code>direction</code>.
      */
     public static final Direction DIRECTION = codes.foobar.wedapp.jooq.tables.Direction.DIRECTION;
+
+    /**
+     * The table <code>gift</code>.
+     */
+    public static final Gift GIFT = codes.foobar.wedapp.jooq.tables.Gift.GIFT;
 
     /**
      * The table <code>guest</code>.
