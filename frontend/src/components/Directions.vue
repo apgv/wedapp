@@ -2,7 +2,7 @@
     <div>
         <h4 class="title is-4">Veibeskrivelser</h4>
 
-        <div v-if="hasDirections"
+        <div v-if="haveDirections"
              v-for="direction in directions"
              :key="direction.id"
              class="content">
@@ -10,7 +10,7 @@
             <div v-html="direction.content"></div>
         </div>
 
-        <info-message :show="!hasDirections"
+        <info-message :show="!haveDirections"
                       :message="'Det er ikke lagt til noen veibeskrivelser.'">
         </info-message>
     </div>
@@ -41,7 +41,7 @@ export default {
         }
     },
     computed: {
-        hasDirections: function () {
+        haveDirections: function () {
             return this.directions.length > 0
         }
     },

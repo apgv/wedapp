@@ -2,7 +2,7 @@
     <div>
         <h4 class="title is-4">Kontakt oss</h4>
 
-        <div v-if="hasContacts"
+        <div v-if="haveContacts"
              v-for="contact in contacts"
              :key="contact.id"
              class="box">
@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <info-message :show="!hasContacts"
+        <info-message :show="!haveContacts"
                       :message="'Det er ikke lagt til kontaktinformasjon.'">
         </info-message>
     </div>
@@ -54,7 +54,7 @@ export default {
         }
     },
     computed: {
-        hasContacts: function () {
+        haveContacts: function () {
             return this.contacts.length > 0
         }
     },

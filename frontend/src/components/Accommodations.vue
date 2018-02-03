@@ -2,7 +2,7 @@
     <div>
         <h4 class="title is-4">Overnatting</h4>
 
-        <div v-if="hasAccommodations"
+        <div v-if="haveAccommodations"
              v-for="accommodation in accommodations"
              :key="accommodation.id"
              class="box">
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <info-message :show="!hasAccommodations"
+        <info-message :show="!haveAccommodations"
                       :message="'Det er ikke lagt til noen overnattinger.'">
         </info-message>
     </div>
@@ -61,7 +61,7 @@ export default {
         }
     },
     computed: {
-        hasAccommodations: function () {
+        haveAccommodations: function () {
             return this.accommodations.length > 0
         }
     },
