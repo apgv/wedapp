@@ -2,9 +2,10 @@
     <div class="box">
         <div class="columns">
             <div class="column has-text-centered">
-                <span @click="checkboxClicked">
-                    <i :class="giftIcon"></i>
-                </span>
+                <input type="checkbox"
+                       v-if="gift.checkable"
+                       v-model="gift.checked"
+                       @click="checkboxClicked"/>
             </div>
             <div class="column is-2"
                  :class="cssClass"
@@ -42,15 +43,6 @@ export default {
         }
     },
     computed: {
-        giftIcon: function () {
-            if (this.isTaken()) {
-                return 'fas fa-check fa-lg'
-            } else if (this.gift.checkable) {
-                return 'far fa-square fa-lg'
-            } else {
-                return 'fas fa-circle fa-lg'
-            }
-        },
         cssClass: function () {
             return this.isTaken() ? 'has-text-grey-light' : ''
         },
