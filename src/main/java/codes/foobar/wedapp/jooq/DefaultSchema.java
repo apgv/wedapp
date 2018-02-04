@@ -10,6 +10,9 @@ import codes.foobar.wedapp.jooq.tables.Direction;
 import codes.foobar.wedapp.jooq.tables.Gift;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
+import codes.foobar.wedapp.jooq.tables.Role;
+import codes.foobar.wedapp.jooq.tables.User;
+import codes.foobar.wedapp.jooq.tables.UserRole;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +39,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultSchema extends SchemaImpl {
 
-    private static final long serialVersionUID = -628162043;
+    private static final long serialVersionUID = 392318929;
 
     /**
      * The reference instance of <code></code>
@@ -74,6 +77,21 @@ public class DefaultSchema extends SchemaImpl {
     public final IndexPage INDEX_PAGE = codes.foobar.wedapp.jooq.tables.IndexPage.INDEX_PAGE;
 
     /**
+     * The table <code>role</code>.
+     */
+    public final Role ROLE = codes.foobar.wedapp.jooq.tables.Role.ROLE;
+
+    /**
+     * The table <code>user</code>.
+     */
+    public final User USER = codes.foobar.wedapp.jooq.tables.User.USER;
+
+    /**
+     * The table <code>user_role</code>.
+     */
+    public final UserRole USER_ROLE = codes.foobar.wedapp.jooq.tables.UserRole.USER_ROLE;
+
+    /**
      * No further instances allowed
      */
     private DefaultSchema() {
@@ -103,7 +121,10 @@ public class DefaultSchema extends SchemaImpl {
             Sequences.DIRECTION_ID_SEQ,
             Sequences.GIFT_ID_SEQ,
             Sequences.GUEST_ID_SEQ,
-            Sequences.INDEX_PAGE_ID_SEQ);
+            Sequences.INDEX_PAGE_ID_SEQ,
+            Sequences.ROLE_ID_SEQ,
+            Sequences.USER_ID_SEQ,
+            Sequences.USER_ROLE_ID_SEQ);
     }
 
     @Override
@@ -120,6 +141,9 @@ public class DefaultSchema extends SchemaImpl {
             Direction.DIRECTION,
             Gift.GIFT,
             Guest.GUEST,
-            IndexPage.INDEX_PAGE);
+            IndexPage.INDEX_PAGE,
+            Role.ROLE,
+            User.USER,
+            UserRole.USER_ROLE);
     }
 }

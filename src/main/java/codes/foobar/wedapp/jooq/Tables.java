@@ -10,6 +10,9 @@ import codes.foobar.wedapp.jooq.tables.Direction;
 import codes.foobar.wedapp.jooq.tables.Gift;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
+import codes.foobar.wedapp.jooq.tables.Role;
+import codes.foobar.wedapp.jooq.tables.User;
+import codes.foobar.wedapp.jooq.tables.UserRole;
 
 import javax.annotation.Generated;
 
@@ -56,4 +59,19 @@ public class Tables {
      * The table <code>index_page</code>.
      */
     public static final IndexPage INDEX_PAGE = codes.foobar.wedapp.jooq.tables.IndexPage.INDEX_PAGE;
+
+    /**
+     * The table <code>role</code>.
+     */
+    public static final Role ROLE = codes.foobar.wedapp.jooq.tables.Role.ROLE;
+
+    /**
+     * The table <code>user</code>.
+     */
+    public static final User USER = codes.foobar.wedapp.jooq.tables.User.USER;
+
+    /**
+     * The table <code>user_role</code>.
+     */
+    public static final UserRole USER_ROLE = codes.foobar.wedapp.jooq.tables.UserRole.USER_ROLE;
 }

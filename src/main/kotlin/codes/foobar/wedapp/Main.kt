@@ -2,6 +2,7 @@ package codes.foobar.wedapp
 
 import codes.foobar.wedapp.accommodation.Accommodation
 import codes.foobar.wedapp.accommodation.AccommodationRepository
+import codes.foobar.wedapp.auth.userFromJWT
 import codes.foobar.wedapp.config.HerokuPostgresConfig
 import codes.foobar.wedapp.contact.Contact
 import codes.foobar.wedapp.contact.ContactRepository
@@ -13,12 +14,20 @@ import codes.foobar.wedapp.guest.GuestRegistration
 import codes.foobar.wedapp.guest.GuestRepository
 import codes.foobar.wedapp.helper.DbHelper
 import codes.foobar.wedapp.helper.JsonHelper
+import codes.foobar.wedapp.helper.JwtHelper
 import codes.foobar.wedapp.index.IndexPage
 import codes.foobar.wedapp.index.IndexPageRepository
+import codes.foobar.wedapp.user.Role
+import codes.foobar.wedapp.user.Subject
+import codes.foobar.wedapp.user.UserRepository
+import codes.foobar.wedapp.user.toSubject
+import com.auth0.jwt.exceptions.JWTVerificationException
+import com.auth0.jwt.interfaces.DecodedJWT
 import com.squareup.moshi.Types
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.flywaydb.core.Flyway
+import spark.Request
 import spark.Spark.*
 import java.net.URI
 import java.net.URLEncoder
@@ -40,6 +49,7 @@ fun main(args: Array<String>) {
     val directionsRepository = DirectionsRepository(dbHelper)
     val accommodationRepository = AccommodationRepository(dbHelper)
     val contactRepository = ContactRepository(dbHelper)
+    val userRepository = UserRepository(dbHelper)
 
     before("/*", { request, response ->
         val herokuOriginatingProtocol = request.headers("X-Forwarded-Proto")
@@ -120,13 +130,30 @@ fun main(args: Array<String>) {
             jsonAdapter.toJson(contacts)
         })
 
+        get("/subjects/:email", { request, _ ->
+            verifyTokenAndCheckRoles(request, listOf(Role.ADMIN, Role.USER), userRepository)
+            val email = request.params(":email")
+            val jsonAdapter = JsonHelper.moshi.adapter(Subject::class.java)
+            val user = userRepository.findByEmail(email)
+            jsonAdapter.toJson(toSubject(user))
+        })
+
         after("/*", { _, response ->
             response.type("application/json")
         })
     })
 
+    get("/auth0callback", { _, response ->
+        response.redirect("/")
+    })
+
     get("/*", { request, response ->
         response.redirect("/?unknown_api_path=${encodeURL(request.uri())}")
+    })
+
+    exception(JWTVerificationException::class.java, { exception, _, response ->
+        logger.error(exception)
+        response.redirect("/?unknown_api_path=${encodeURL("/reauthenticate")}")
     })
 }
 
@@ -136,6 +163,29 @@ fun migrateDatabase(dataSource: DataSource) {
     val flyway = Flyway()
     flyway.dataSource = dataSource
     flyway.migrate()
+}
+
+private fun verifyTokenAndCheckRoles(request: Request,
+                                     requiredRoles: List<Role>,
+                                     userRepository: UserRepository): DecodedJWT {
+    val decodedJWT = JwtHelper.verifyAndDecode(request)
+    val jwtUser = userFromJWT(decodedJWT)
+    val user = userRepository.findByEmail(jwtUser.email)
+    val userRoles = user.roles.map { Role.valueOfIgnoreCase(it.name) }
+
+    return when {
+        userRoles.intersect(requiredRoles).isNotEmpty() -> decodedJWT
+        else -> {
+            val exceptionMessage = String.format(
+                    "User %s (%s) is missing one of the roles %s, has roles %s",
+                    jwtUser.email,
+                    jwtUser.subject,
+                    requiredRoles,
+                    userRoles
+            )
+            throw IllegalAccessException(exceptionMessage)
+        }
+    }
 }
 
 private fun encodeURL(uri: String) = URLEncoder.encode(uri, "UTF-8")

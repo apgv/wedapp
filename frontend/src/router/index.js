@@ -11,6 +11,8 @@ import Directions from '@/components/Directions'
 import Accommodations from '@/components/Accommodations'
 import Contact from '@/components/Contact'
 import ExternalRouting from '@/components/ExternalRouting'
+import Auth0Callback from '@/components/Auth0Callback'
+import ReAuthenticate from '@/components/ReAuthenticate'
 
 Vue.use(Router)
 Vue.use(VeeValidate)
@@ -64,6 +66,16 @@ export default new Router({
             path: '/externalrouting',
             name: 'ExternalRouting',
             component: ExternalRouting
+        },
+        {
+            path: '/auth0callback',
+            name: 'Auth0Callback',
+            component: Auth0Callback
+        },
+        {
+            path: '/reauthenticate',
+            name: 'ReAuthenticate',
+            component: ReAuthenticate
         },
         {
             path: '/',

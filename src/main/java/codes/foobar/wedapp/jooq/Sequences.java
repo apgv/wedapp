@@ -52,4 +52,19 @@ public class Sequences {
      * The sequence <code>index_page_id_seq</code>
      */
     public static final Sequence<Integer> INDEX_PAGE_ID_SEQ = new SequenceImpl<Integer>("index_page_id_seq", DefaultSchema.DEFAULT_SCHEMA, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+
+    /**
+     * The sequence <code>role_id_seq</code>
+     */
+    public static final Sequence<Integer> ROLE_ID_SEQ = new SequenceImpl<Integer>("role_id_seq", DefaultSchema.DEFAULT_SCHEMA, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+
+    /**
+     * The sequence <code>user_id_seq</code>
+     */
+    public static final Sequence<Integer> USER_ID_SEQ = new SequenceImpl<Integer>("user_id_seq", DefaultSchema.DEFAULT_SCHEMA, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
+
+    /**
+     * The sequence <code>user_role_id_seq</code>
+     */
+    public static final Sequence<Integer> USER_ROLE_ID_SEQ = new SequenceImpl<Integer>("user_role_id_seq", DefaultSchema.DEFAULT_SCHEMA, org.jooq.impl.SQLDataType.INTEGER.nullable(false));
 }

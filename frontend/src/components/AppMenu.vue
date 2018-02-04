@@ -90,7 +90,7 @@
             </div>
             <div class="navbar-end">
                 <div v-if="authenticated" class="navbar-item">
-                    {{auth.subject.firstName}} ({{auth.subject.email}})
+                    {{auth.subject.name}} ({{auth.subject.email}})
                 </div>
                 <div class="navbar-item">
                     <a v-if="!authenticated"
@@ -112,6 +112,7 @@
 <script>
 export default {
     name: 'app-menu',
+    props: ['auth', 'authenticated'],
     data () {
         return {
             showMobileMenu: false

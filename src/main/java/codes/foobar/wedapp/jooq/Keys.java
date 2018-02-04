@@ -10,15 +10,22 @@ import codes.foobar.wedapp.jooq.tables.Direction;
 import codes.foobar.wedapp.jooq.tables.Gift;
 import codes.foobar.wedapp.jooq.tables.Guest;
 import codes.foobar.wedapp.jooq.tables.IndexPage;
+import codes.foobar.wedapp.jooq.tables.Role;
+import codes.foobar.wedapp.jooq.tables.User;
+import codes.foobar.wedapp.jooq.tables.UserRole;
 import codes.foobar.wedapp.jooq.tables.records.AccommodationRecord;
 import codes.foobar.wedapp.jooq.tables.records.ContactRecord;
 import codes.foobar.wedapp.jooq.tables.records.DirectionRecord;
 import codes.foobar.wedapp.jooq.tables.records.GiftRecord;
 import codes.foobar.wedapp.jooq.tables.records.GuestRecord;
 import codes.foobar.wedapp.jooq.tables.records.IndexPageRecord;
+import codes.foobar.wedapp.jooq.tables.records.RoleRecord;
+import codes.foobar.wedapp.jooq.tables.records.UserRecord;
+import codes.foobar.wedapp.jooq.tables.records.UserRoleRecord;
 
 import javax.annotation.Generated;
 
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
@@ -48,6 +55,9 @@ public class Keys {
     public static final Identity<GiftRecord, Integer> IDENTITY_GIFT = Identities0.IDENTITY_GIFT;
     public static final Identity<GuestRecord, Integer> IDENTITY_GUEST = Identities0.IDENTITY_GUEST;
     public static final Identity<IndexPageRecord, Integer> IDENTITY_INDEX_PAGE = Identities0.IDENTITY_INDEX_PAGE;
+    public static final Identity<RoleRecord, Integer> IDENTITY_ROLE = Identities0.IDENTITY_ROLE;
+    public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
+    public static final Identity<UserRoleRecord, Integer> IDENTITY_USER_ROLE = Identities0.IDENTITY_USER_ROLE;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -59,11 +69,16 @@ public class Keys {
     public static final UniqueKey<GiftRecord> GIFT_PKEY = UniqueKeys0.GIFT_PKEY;
     public static final UniqueKey<GuestRecord> GUEST_PKEY = UniqueKeys0.GUEST_PKEY;
     public static final UniqueKey<IndexPageRecord> INDEX_PAGE_PKEY = UniqueKeys0.INDEX_PAGE_PKEY;
+    public static final UniqueKey<RoleRecord> ROLE_PKEY = UniqueKeys0.ROLE_PKEY;
+    public static final UniqueKey<UserRecord> USER_PKEY = UniqueKeys0.USER_PKEY;
+    public static final UniqueKey<UserRoleRecord> USER_ROLE_PKEY = UniqueKeys0.USER_ROLE_PKEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<UserRoleRecord, UserRecord> USER_ROLE__USER_ROLE_USER_ID_FKEY = ForeignKeys0.USER_ROLE__USER_ROLE_USER_ID_FKEY;
+    public static final ForeignKey<UserRoleRecord, RoleRecord> USER_ROLE__USER_ROLE_ROLE_ID_FKEY = ForeignKeys0.USER_ROLE__USER_ROLE_ROLE_ID_FKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -76,6 +91,9 @@ public class Keys {
         public static Identity<GiftRecord, Integer> IDENTITY_GIFT = createIdentity(Gift.GIFT, Gift.GIFT.ID);
         public static Identity<GuestRecord, Integer> IDENTITY_GUEST = createIdentity(Guest.GUEST, Guest.GUEST.ID);
         public static Identity<IndexPageRecord, Integer> IDENTITY_INDEX_PAGE = createIdentity(IndexPage.INDEX_PAGE, IndexPage.INDEX_PAGE.ID);
+        public static Identity<RoleRecord, Integer> IDENTITY_ROLE = createIdentity(Role.ROLE, Role.ROLE.ID);
+        public static Identity<UserRecord, Integer> IDENTITY_USER = createIdentity(User.USER, User.USER.ID);
+        public static Identity<UserRoleRecord, Integer> IDENTITY_USER_ROLE = createIdentity(UserRole.USER_ROLE, UserRole.USER_ROLE.ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
@@ -85,5 +103,13 @@ public class Keys {
         public static final UniqueKey<GiftRecord> GIFT_PKEY = createUniqueKey(Gift.GIFT, "gift_pkey", Gift.GIFT.ID);
         public static final UniqueKey<GuestRecord> GUEST_PKEY = createUniqueKey(Guest.GUEST, "guest_pkey", Guest.GUEST.ID);
         public static final UniqueKey<IndexPageRecord> INDEX_PAGE_PKEY = createUniqueKey(IndexPage.INDEX_PAGE, "index_page_pkey", IndexPage.INDEX_PAGE.ID);
+        public static final UniqueKey<RoleRecord> ROLE_PKEY = createUniqueKey(Role.ROLE, "role_pkey", Role.ROLE.ID);
+        public static final UniqueKey<UserRecord> USER_PKEY = createUniqueKey(User.USER, "user_pkey", User.USER.ID);
+        public static final UniqueKey<UserRoleRecord> USER_ROLE_PKEY = createUniqueKey(UserRole.USER_ROLE, "user_role_pkey", UserRole.USER_ROLE.ID, UserRole.USER_ROLE.USER_ID, UserRole.USER_ROLE.ROLE_ID);
+    }
+
+    private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<UserRoleRecord, UserRecord> USER_ROLE__USER_ROLE_USER_ID_FKEY = createForeignKey(codes.foobar.wedapp.jooq.Keys.USER_PKEY, UserRole.USER_ROLE, "user_role__user_role_user_id_fkey", UserRole.USER_ROLE.USER_ID);
+        public static final ForeignKey<UserRoleRecord, RoleRecord> USER_ROLE__USER_ROLE_ROLE_ID_FKEY = createForeignKey(codes.foobar.wedapp.jooq.Keys.ROLE_PKEY, UserRole.USER_ROLE, "user_role__user_role_role_id_fkey", UserRole.USER_ROLE.ROLE_ID);
     }
 }
