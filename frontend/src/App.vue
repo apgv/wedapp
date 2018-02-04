@@ -36,11 +36,6 @@ export default {
     methods: {
         login,
         logout
-    },
-    beforeCreate: function () {
-        if (process.env.NODE_ENV === 'production' && window.location.protocol === 'http:') {
-            window.location.reload(true)
-        }
     }
 }
 </script>
