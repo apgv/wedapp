@@ -1,5 +1,13 @@
 <template>
     <div>
+        <div v-if="authenticated"
+             class="field">
+            <router-link :to="'/indexeditor'"
+                         class="button is-link">
+                Rediger forsiden
+            </router-link>
+        </div>
+
         <div v-if="hasPageContent"
              v-html="page.content"
              class="content">
@@ -18,6 +26,7 @@ import InfoMessage from './InfoMessage'
 export default {
     components: {InfoMessage},
     name: 'index',
+    props: ['authenticated'],
     data () {
         return {
             page: {

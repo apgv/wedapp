@@ -76,6 +76,7 @@ fun main(args: Array<String>) {
         })
 
         post("/indexpage", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
             val jsonAdapter = JsonHelper.moshi.adapter(IndexPage::class.java)
             val indexPage = jsonAdapter.fromJson(request.body())
 
