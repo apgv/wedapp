@@ -5,6 +5,7 @@ import codes.foobar.wedapp.accommodation.AccommodationRepository
 import codes.foobar.wedapp.auth.userFromJWT
 import codes.foobar.wedapp.config.HerokuPostgresConfig
 import codes.foobar.wedapp.contact.Contact
+import codes.foobar.wedapp.contact.ContactRegistration
 import codes.foobar.wedapp.contact.ContactRepository
 import codes.foobar.wedapp.direction.Direction
 import codes.foobar.wedapp.direction.DirectionsRepository
@@ -129,6 +130,40 @@ fun main(args: Array<String>) {
             val jsonAdapter = JsonHelper.moshi.adapter<List<Contact>>(parameterizedType)
             val contacts = contactRepository.findAll()
             jsonAdapter.toJson(contacts)
+        })
+
+        get("/contacts/:id", { request, _ ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val id = request.params("id")
+            val jsonAdapter = JsonHelper.moshi.adapter(Contact::class.java)
+            val contact = contactRepository.findById(id.toInt())
+            jsonAdapter.toJson(contact)
+        })
+
+        post("/contacts", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val jsonAdapter = JsonHelper.moshi.adapter(ContactRegistration::class.java)
+            val contactRegistration = jsonAdapter.fromJson(request.body())
+            when {
+                contactRegistration != null -> {
+                    contactRepository.save(contactRegistration)
+                    response.status(201)
+                }
+                else -> response.status(400)
+            }
+        })
+
+        put("/contacts", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val jsonAdapter = JsonHelper.moshi.adapter(ContactRegistration::class.java)
+            val contactRegistration = jsonAdapter.fromJson(request.body())
+            when {
+                contactRegistration != null -> {
+                    contactRepository.update(contactRegistration)
+                    response.status(204)
+                }
+                else -> response.status(400)
+            }
         })
 
         get("/subjects/:email", { request, _ ->

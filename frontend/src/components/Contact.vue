@@ -2,6 +2,14 @@
     <div>
         <h4 class="title is-4">Kontakt oss</h4>
 
+        <div v-if="authenticated"
+             class="field">
+            <router-link :to="'/contactaddedit'"
+                         class="button is-link">
+                Legg til kontakt
+            </router-link>
+        </div>
+
         <div v-if="haveContacts"
              v-for="contact in contacts"
              :key="contact.id"
@@ -10,15 +18,24 @@
                 <div class="column">
                     <ul class="fa-ul">
                         <li>
-                            <span class="fa-li"><i class="fas fa-user"></i></span>{{contact.name}}
+                            <span class="fa-li"><i class="fas fa-user"></i></span>&nbsp;{{contact.name}}
                         </li>
                         <li>
-                            <span class="fa-li"><i class="fas fa-phone"></i></span>{{contact.phone}}
+                            <div>
+                                <span class="fa-li"><i class="fas fa-phone"></i></span>&nbsp;{{contact.phone}}
+                            </div>
                         </li>
                         <li>
-                            <span class="fa-li"><i class="fas fa-at"></i></span>{{contact.email}}
+                            <span class="fa-li"><i class="fas fa-at"></i></span>&nbsp;{{contact.email}}
                         </li>
                     </ul>
+                </div>
+                <div v-if="authenticated"
+                     class="column is-three-quarters">
+                    <router-link :to="`/contactaddedit/${contact.id}`"
+                                 class="button is-text icon is-medium">
+                        <i class="fas fa-edit"></i>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -36,6 +53,7 @@ import InfoMessage from './InfoMessage'
 export default {
     components: {InfoMessage},
     name: 'contact',
+    props: ['authenticated'],
     data () {
         return {
             contacts: []

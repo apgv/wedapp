@@ -10,6 +10,7 @@ import GiftList from '@/components/GiftList'
 import Directions from '@/components/Directions'
 import Accommodations from '@/components/Accommodations'
 import Contact from '@/components/Contact'
+import ContactAddEdit from '@/components/ContactAddEdit'
 import ExternalRouting from '@/components/ExternalRouting'
 import Auth0Callback from '@/components/Auth0Callback'
 import ReAuthenticate from '@/components/ReAuthenticate'
@@ -61,6 +62,12 @@ export default new Router({
             path: '/contact',
             name: 'Contact',
             component: Contact
+        },
+        {
+            path: '/contactaddedit/:contactId?',
+            name: 'ContactAddEdit',
+            component: ContactAddEdit,
+            props: true
         },
         {
             path: '/externalrouting',
