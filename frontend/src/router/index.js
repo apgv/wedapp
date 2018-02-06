@@ -9,6 +9,7 @@ import GuestRegistration from '@/components/GuestRegistration'
 import GiftList from '@/components/GiftList'
 import Directions from '@/components/Directions'
 import Accommodations from '@/components/Accommodations'
+import AccommodationsAddEdit from '@/components/AccommodationsAddEdit'
 import Contact from '@/components/Contact'
 import ContactAddEdit from '@/components/ContactAddEdit'
 import ExternalRouting from '@/components/ExternalRouting'
@@ -57,6 +58,12 @@ export default new Router({
             path: '/accommodations',
             name: 'Accommodations',
             component: Accommodations
+        },
+        {
+            path: '/accommodationsaddedit/:accommodationId?',
+            name: 'AccommodationsAddEdit',
+            component: AccommodationsAddEdit,
+            props: true
         },
         {
             path: '/contact',
