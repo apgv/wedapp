@@ -8,6 +8,7 @@ import IndexEditor from '@/components/IndexEditor'
 import GuestRegistration from '@/components/GuestRegistration'
 import GiftList from '@/components/GiftList'
 import Directions from '@/components/Directions'
+import DirectionsAddEdit from '@/components/DirectionsAddEdit'
 import Accommodations from '@/components/Accommodations'
 import AccommodationsAddEdit from '@/components/AccommodationsAddEdit'
 import Contact from '@/components/Contact'
@@ -53,6 +54,12 @@ export default new Router({
             path: '/directions',
             name: 'Directions',
             component: Directions
+        },
+        {
+            path: '/directionsaddedit',
+            name: 'DirectionsAddEdit',
+            component: DirectionsAddEdit,
+            props: true
         },
         {
             path: '/accommodations',

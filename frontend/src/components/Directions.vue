@@ -2,6 +2,14 @@
     <div>
         <h4 class="title is-4">Veibeskrivelser</h4>
 
+        <div v-if="authenticated"
+             class="field">
+            <router-link :to="'/directionsaddedit'"
+                         class="button is-link">
+                Legg til veibeskrivelse
+            </router-link>
+        </div>
+
         <div v-if="haveDirections"
              v-for="direction in directions"
              :key="direction.id"
@@ -23,6 +31,7 @@ import InfoMessage from './InfoMessage'
 export default {
     components: {InfoMessage},
     name: 'directions',
+    props: ['authenticated'],
     data () {
         return {
             directions: []
