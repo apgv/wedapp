@@ -1,6 +1,7 @@
 package codes.foobar.wedapp
 
 import codes.foobar.wedapp.accommodation.Accommodation
+import codes.foobar.wedapp.accommodation.AccommodationRegistration
 import codes.foobar.wedapp.accommodation.AccommodationRepository
 import codes.foobar.wedapp.auth.userFromJWT
 import codes.foobar.wedapp.config.HerokuPostgresConfig
@@ -123,6 +124,40 @@ fun main(args: Array<String>) {
             val jsonAdapter = JsonHelper.moshi.adapter<List<Accommodation>>(parameterizedType)
             val accommodations = accommodationRepository.findAll()
             jsonAdapter.toJson(accommodations)
+        })
+
+        get("/accommodations/:id", { request, _ ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val id = request.params("id")
+            val jsonAdapter = JsonHelper.moshi.adapter(Accommodation::class.java)
+            val accommodation = accommodationRepository.findById(id.toInt())
+            jsonAdapter.toJson(accommodation)
+        })
+
+        post("/accommodations", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val jsonAdapter = JsonHelper.moshi.adapter(AccommodationRegistration::class.java)
+            val accommodationRegistration = jsonAdapter.fromJson(request.body())
+            when {
+                accommodationRegistration != null -> {
+                    accommodationRepository.save(accommodationRegistration)
+                    response.status(201)
+                }
+                else -> response.status(400)
+            }
+        })
+
+        put("/accommodations", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val jsonAdapter = JsonHelper.moshi.adapter(AccommodationRegistration::class.java)
+            val accommodationRegistration = jsonAdapter.fromJson(request.body())
+            when {
+                accommodationRegistration != null -> {
+                    accommodationRepository.update(accommodationRegistration)
+                    response.status(204)
+                }
+                else -> response.status(400)
+            }
         })
 
         get("/contacts", { _, _ ->

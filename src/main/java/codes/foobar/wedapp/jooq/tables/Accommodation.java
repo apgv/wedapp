@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Accommodation extends TableImpl<AccommodationRecord> {
 
-    private static final long serialVersionUID = -271873713;
+    private static final long serialVersionUID = -142297075;
 
     /**
      * The reference instance of <code>accommodation</code>
@@ -73,12 +73,12 @@ public class Accommodation extends TableImpl<AccommodationRecord> {
     /**
      * The column <code>accommodation.phone</code>.
      */
-    public final TableField<AccommodationRecord, String> PHONE = createField("phone", org.jooq.impl.SQLDataType.VARCHAR(15).nullable(false), this, "");
+    public final TableField<AccommodationRecord, String> PHONE = createField("phone", org.jooq.impl.SQLDataType.VARCHAR(15), this, "");
 
     /**
      * The column <code>accommodation.home_page</code>.
      */
-    public final TableField<AccommodationRecord, String> HOME_PAGE = createField("home_page", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<AccommodationRecord, String> HOME_PAGE = createField("home_page", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>accommodation.info</code>.

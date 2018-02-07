@@ -20,17 +20,18 @@
                         <div class="column">
                             <ul class="fa-ul">
                                 <li>
-                                    <span class="fa-li"><i class="fas fa-building"></i></span>{{accommodation.name}}
+                                    <span class="fa-li"><i class="fas fa-building"></i></span>&nbsp;{{accommodation.name}}
                                 </li>
                                 <li>
-                                    <span class="fa-li"><i class="fas fa-map-marker"></i></span>{{accommodation.address}}
+                                    <span class="fa-li"><i class="fas fa-map-marker"></i></span>&nbsp;{{accommodation.address}}
                                 </li>
                                 <li>
-                                    <span class="fa-li"><i class="fas fa-phone"></i></span>{{accommodation.phone}}
+                                    <span class="fa-li"><i class="fas fa-phone"></i></span>&nbsp;{{accommodation.phone}}
                                 </li>
                                 <li>
-                                    <span class="fa-li"><i class="fas fa-globe"></i></span>
-                                    <a :href="accommodation.homePage"
+                                    <span class="fa-li"><i class="fas fa-globe"></i></span>&nbsp;
+                                    <a v-if="accommodation.homePage"
+                                       :href="accommodation.homePage"
                                        target="_blank">{{accommodation.name}}</a>
                                 </li>
                             </ul>
@@ -45,7 +46,7 @@
                     </div>
                 </div>
                 <div v-html="accommodation.infoHtml"
-                     class="column">
+                     class="column content">
                 </div>
             </div>
         </div>

@@ -51,7 +51,7 @@
                     <label class="label">Telefon</label>
                     <p class="control has-icons-left">
                         <input v-model="accommodation.phone"
-                               v-validate="'digits:15'"
+                               v-validate="'numeric|max:15'"
                                name="phone"
                                class="input"
                                placeholder="Telefon"/>
@@ -66,10 +66,10 @@
                 </div>
 
                 <div class="field">
-                    <label class="label">Hjemmeside</label>
+                    <label class="label">Hjemmeside (http://navn.domene)</label>
                     <p class="control has-icons-left">
                         <input v-model="accommodation.homePage"
-                               v-validate="'max:255'"
+                               v-validate="'url:require_protocol|max:255'"
                                name="homepage"
                                class="input"
                                placeholder="Hjemmeside"/>
