@@ -85,7 +85,7 @@ export default {
     methods: {
         fetchDirection () {
             if (this.authenticated && this.directionId) {
-                axios.get(`/directions/${this.directionId}`, {
+                axios.get(`/api/directions/${this.directionId}`, {
                     headers: {'X-JWT': this.auth.jwt()}
                 }).then(response => {
                     this.direction = response.data
@@ -115,7 +115,7 @@ export default {
                             }
 
                             if (this.directionId) {
-                                axios.put('/api/directions', this.directions, {
+                                axios.put('/api/directions', this.direction, {
                                     headers: {'X-JWT': this.auth.jwt()}
                                 }).then(successCallback)
                                     .then(() => {

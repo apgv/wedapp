@@ -9,6 +9,7 @@ import codes.foobar.wedapp.contact.Contact
 import codes.foobar.wedapp.contact.ContactRegistration
 import codes.foobar.wedapp.contact.ContactRepository
 import codes.foobar.wedapp.direction.Direction
+import codes.foobar.wedapp.direction.DirectionRegistration
 import codes.foobar.wedapp.direction.DirectionsRepository
 import codes.foobar.wedapp.gift.Gift
 import codes.foobar.wedapp.gift.GiftRepository
@@ -117,6 +118,40 @@ fun main(args: Array<String>) {
             val jsonAdapter = JsonHelper.moshi.adapter<List<Direction>>(parameterizedType)
             val directions = directionsRepository.findAll()
             jsonAdapter.toJson(directions)
+        })
+
+        get("/directions/:id", { request, _ ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val id = request.params("id")
+            val jsonAdapter = JsonHelper.moshi.adapter(Direction::class.java)
+            val direction = directionsRepository.findById(id.toInt())
+            jsonAdapter.toJson(direction)
+        })
+
+        post("/directions", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val jsonAdapter = JsonHelper.moshi.adapter(DirectionRegistration::class.java)
+            val directionRegistration = jsonAdapter.fromJson(request.body())
+            when {
+                directionRegistration != null -> {
+                    directionsRepository.save(directionRegistration)
+                    response.status(201)
+                }
+                else -> response.status(400)
+            }
+        })
+
+        put("/directions", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val jsonAdapter = JsonHelper.moshi.adapter(DirectionRegistration::class.java)
+            val directionRegistration = jsonAdapter.fromJson(request.body())
+            when {
+                directionRegistration != null -> {
+                    directionsRepository.update(directionRegistration)
+                    response.status(204)
+                }
+                else -> response.status(400)
+            }
         })
 
         get("/accommodations", { _, _ ->

@@ -15,6 +15,12 @@
              :key="direction.id"
              class="content">
             <h5 class="title is-5">{{direction.title}}</h5>
+            <div v-if="authenticated">
+                <router-link :to="`/directionsaddedit/${direction.id}`"
+                             class="button is-text icon is-medium">
+                    <i class="fas fa-edit"></i>
+                </router-link>
+            </div>
             <div v-html="direction.content"></div>
         </div>
 

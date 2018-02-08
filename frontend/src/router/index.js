@@ -56,7 +56,7 @@ export default new Router({
             component: Directions
         },
         {
-            path: '/directionsaddedit',
+            path: '/directionsaddedit/:directionId?',
             name: 'DirectionsAddEdit',
             component: DirectionsAddEdit,
             props: true
