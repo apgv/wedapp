@@ -20,7 +20,7 @@
                                class="input"
                                placeholder="Tittel"/>
                         <span class="icon is-small is-left">
-                        <i class="fas fa-map-marker"></i>
+                        <i class="fas fa-font"></i>
                     </span>
                         <span v-show="errors.has('title')"
                               class="help is-danger">

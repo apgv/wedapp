@@ -74,12 +74,12 @@
                                class="input"
                                placeholder="Hjemmeside"/>
                         <span class="icon is-small is-left">
-                        <i class="fas fa-globe"></i>
-                    </span>
+                            <i class="fas fa-globe"></i>
+                        </span>
                         <span v-show="errors.has('homepage')"
                               class="help is-danger">
-                        {{errors.first('homepage')}}
-                    </span>
+                            {{errors.first('homepage')}}
+                        </span>
                     </p>
                 </div>
 

@@ -12,6 +12,7 @@ import codes.foobar.wedapp.direction.Direction
 import codes.foobar.wedapp.direction.DirectionRegistration
 import codes.foobar.wedapp.direction.DirectionsRepository
 import codes.foobar.wedapp.gift.Gift
+import codes.foobar.wedapp.gift.GiftRegistration
 import codes.foobar.wedapp.gift.GiftRepository
 import codes.foobar.wedapp.guest.GuestRegistration
 import codes.foobar.wedapp.guest.GuestRepository
@@ -31,6 +32,7 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.flywaydb.core.Flyway
 import spark.Request
+import spark.Response
 import spark.Spark.*
 import java.net.URI
 import java.net.URLEncoder
@@ -111,6 +113,40 @@ fun main(args: Array<String>) {
             val jsonAdapter = JsonHelper.moshi.adapter<List<Gift>>(parameterizedType)
             val gifts = giftRepository.findAll()
             jsonAdapter.toJson(gifts)
+        })
+
+        get("/gifts/:id", { request, _ ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val id = request.params("id")
+            val jsonAdapter = JsonHelper.moshi.adapter(Gift::class.java)
+            val gift = giftRepository.findById(id.toInt())
+            jsonAdapter.toJson(gift)
+        })
+
+        post("/gifts", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val jsonAdapter = JsonHelper.moshi.adapter(GiftRegistration::class.java)
+            val giftRegistration = jsonAdapter.fromJson(request.body())
+            when {
+                giftRegistration != null -> {
+                    giftRepository.save(giftRegistration)
+                    response.status(201)
+                }
+                else -> response.status(400)
+            }
+        })
+
+        put("/gifts", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val jsonAdapter = JsonHelper.moshi.adapter(GiftRegistration::class.java)
+            val giftRegistration = jsonAdapter.fromJson(request.body())
+            when {
+                giftRegistration != null -> {
+                    giftRepository.update(giftRegistration)
+                    response.status(204)
+                }
+                else -> response.status(400)
+            }
         })
 
         get("/directions", { _, _ ->

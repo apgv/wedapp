@@ -2,8 +2,17 @@
     <div>
         <h4 class="title is-4">Ønskeliste</h4>
 
+        <div v-if="authenticated"
+             class="field">
+            <router-link :to="'/giftaddedit'"
+                         class="button is-link">
+                Legg til gaveønske
+            </router-link>
+        </div>
+
         <gift v-for="gift in gifts"
               :key="gift.id"
+              :authenticated="authenticated"
               :gift="gift"
               v-on:checkbokClicked="save(gift)">
         </gift>
@@ -20,11 +29,9 @@ import axios from 'axios'
 import InfoMessage from './InfoMessage'
 
 export default {
-    components: {
-        InfoMessage,
-        Gift
-    },
+    components: {InfoMessage, Gift},
     name: 'gift-list',
+    props: ['auth', 'authenticated'],
     data () {
         return {
             gifts: []

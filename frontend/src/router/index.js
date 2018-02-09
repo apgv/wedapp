@@ -7,6 +7,7 @@ import Index from '@/components/Index'
 import IndexEditor from '@/components/IndexEditor'
 import GuestRegistration from '@/components/GuestRegistration'
 import GiftList from '@/components/GiftList'
+import GiftAddEdit from '@/components/GiftAddEdit'
 import Directions from '@/components/Directions'
 import DirectionsAddEdit from '@/components/DirectionsAddEdit'
 import Accommodations from '@/components/Accommodations'
@@ -49,6 +50,12 @@ export default new Router({
             path: '/giftlist',
             name: 'GiftList',
             component: GiftList
+        },
+        {
+            path: '/giftaddedit/:giftId?',
+            name: 'GiftAddEdit',
+            component: GiftAddEdit,
+            props: true
         },
         {
             path: '/directions',

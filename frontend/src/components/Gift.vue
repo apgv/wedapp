@@ -3,9 +3,15 @@
         <div class="columns">
             <div class="column has-text-centered">
                 <input type="checkbox"
-                       v-if="gift.checkable"
+                       v-if="!authenticated && gift.checkable"
                        v-model="gift.checked"
                        @click="checkboxClicked"/>
+
+                <router-link v-if="authenticated"
+                             :to="`/giftaddedit/${gift.id}`"
+                             class="button is-text icon is-medium">
+                    <i class="fas fa-edit"></i>
+                </router-link>
             </div>
             <div class="column is-2"
                  :class="cssClass"
@@ -33,7 +39,7 @@
 <script>
 export default {
     name: 'gift',
-    props: ['gift'],
+    props: ['gift', 'authenticated'],
     methods: {
         isTaken () {
             return this.gift.checkable && this.gift.checked
