@@ -160,7 +160,7 @@ export default {
         }
     },
     methods: {
-        fetchGifts () {
+        fetchGift () {
             if (this.authenticated && this.giftId) {
                 axios.get(`/api/gifts/${this.giftId}`, {
                     headers: {'X-JWT': this.auth.jwt()}
