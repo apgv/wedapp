@@ -13,8 +13,8 @@
         <gift v-for="gift in gifts"
               :key="gift.id"
               :authenticated="authenticated"
-              :gift="gift"
-              v-on:checkbokClicked="save(gift)">
+              :gift.sync="gift"
+              v-on:checkbokClicked="saveGift(gift)">
         </gift>
 
         <info-message :show="!haveGifts"
@@ -38,7 +38,7 @@ export default {
         }
     },
     methods: {
-        fetch () {
+        fetchGifts () {
             axios.get('/api/gifts')
                 .then(response => {
                     this.gifts = response.data
@@ -48,8 +48,17 @@ export default {
                     console.log(error)
                 })
         },
-        save (gift) {
-            console.log('save()')
+        saveGift (gift) {
+            axios.put(`/api/gifts/${gift.id}/taken`, gift)
+                .then(() => {
+                    this.fetchGifts()
+                    this.$snotify.success('Ditt valg er registrert')
+                })
+                .catch(error => {
+                    this.fetchGifts()
+                    this.$snotify.error('Oops. Noe gikk galt. Vennligst prøv på nytt')
+                    console.log(error)
+                })
         }
     },
     computed: {
@@ -58,7 +67,7 @@ export default {
         }
     },
     created () {
-        this.fetch()
+        this.fetchGifts()
     }
 }
 </script>

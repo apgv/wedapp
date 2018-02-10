@@ -45,7 +45,7 @@ export default {
             return this.gift.checkable && this.gift.checked
         },
         checkboxClicked () {
-            this.$emit('checkbokClicked')
+            this.$nextTick(() => this.$emit('checkbokClicked'))
         }
     },
     computed: {

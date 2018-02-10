@@ -32,7 +32,6 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.flywaydb.core.Flyway
 import spark.Request
-import spark.Response
 import spark.Spark.*
 import java.net.URI
 import java.net.URLEncoder
@@ -133,6 +132,20 @@ fun main(args: Array<String>) {
                     response.status(201)
                 }
                 else -> response.status(400)
+            }
+        })
+
+        put("/gifts/:id/taken", { request, response ->
+            val id = request.params(":id")
+            val gift = giftRepository.findById(id.toInt())
+            val jsonAdapter = JsonHelper.moshi.adapter(GiftRegistration::class.java)
+            val giftRegistration = jsonAdapter.fromJson(request.body())
+
+            if (gift.checkable && giftRegistration != null) {
+                giftRepository.updateChecked(id.toInt(), giftRegistration.checked)
+                response.status(204)
+            } else {
+                response.status(400)
             }
         })
 

@@ -76,6 +76,19 @@ class GiftRepository(private val dbHelper: DbHelper) {
                     .set(GIFT.LINK_URL, giftRegistration.link?.url.toString())
                     .set(GIFT.LINK_TEXT, giftRegistration.link?.text)
                     .set(GIFT.LAST_UPDATED, JavaTimeHelper.nowEuropeOslo())
+                    .where(GIFT.ID.eq(giftRegistration.id))
+                    .execute()
+        })
+    }
+
+    fun updateChecked(id: Int, checked: Boolean) {
+        val dslContext = dbHelper.dslContext()
+
+        dslContext.transaction(TransactionalRunnable {
+            dslContext.update(GIFT)
+                    .set(GIFT.CHECKED, checked)
+                    .set(GIFT.LAST_UPDATED, JavaTimeHelper.nowEuropeOslo())
+                    .where(GIFT.ID.eq(id))
                     .execute()
         })
     }
