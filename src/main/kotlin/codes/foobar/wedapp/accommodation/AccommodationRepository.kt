@@ -24,6 +24,7 @@ class AccommodationRepository(private val dbHelper: DbHelper) {
         return dbHelper.dslContext()
                 .select(selectParameters)
                 .from(ACCOMMODATION)
+                .orderBy(ACCOMMODATION.ID)
                 .fetch()
                 .map { mapToAccommodations(it) }
     }

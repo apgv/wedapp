@@ -20,6 +20,7 @@ class DirectionsRepository(private val dbHelper: DbHelper) {
         return dbHelper.dslContext()
                 .select(selectParameters)
                 .from(DIRECTION)
+                .orderBy(DIRECTION.ID)
                 .fetch()
                 .map { mapToDirection(it) }
     }

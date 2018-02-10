@@ -25,6 +25,7 @@ class GiftRepository(private val dbHelper: DbHelper) {
         return dbHelper.dslContext()
                 .select(selectParameters)
                 .from(GIFT)
+                .orderBy(GIFT.ID)
                 .fetch()
                 .map { mapToGift(it) }
     }

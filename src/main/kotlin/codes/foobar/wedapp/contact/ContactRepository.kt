@@ -21,6 +21,7 @@ class ContactRepository(private val dbHelper: DbHelper) {
         return dbHelper.dslContext()
                 .select(selectParameters)
                 .from(CONTACT)
+                .orderBy(CONTACT.ID)
                 .fetch()
                 .map { mapContact(it) }
     }
