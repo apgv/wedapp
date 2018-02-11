@@ -20,6 +20,10 @@
                              class="button is-text icon is-medium">
                     <i class="fas fa-edit"></i>
                 </router-link>
+                <a @click.prevent="deleteDirection(direction)"
+                   class="button is-text icon is-medium">
+                    <i class="fas fa-trash"></i>
+                </a>
             </div>
             <div v-html="direction.content"></div>
         </div>
@@ -37,7 +41,7 @@ import InfoMessage from './InfoMessage'
 export default {
     components: {InfoMessage},
     name: 'directions',
-    props: ['authenticated'],
+    props: ['auth', 'authenticated'],
     data () {
         return {
             directions: []
@@ -53,6 +57,23 @@ export default {
                     this.$snotify.error('Feil ved henting av data')
                     console.log(error)
                 })
+        },
+        deleteDirection (direction) {
+            if (this.authenticated) {
+                axios.delete(`/api/directions/${direction.id}`, {
+                    headers: {'X-JWT': this.auth.jwt()}
+                }).then(() => {
+                    let index = this.directions.indexOf(direction)
+
+                    if (index > -1) {
+                        this.$snotify.success('Veibeskrivelse ble fjernet')
+                        this.directions.splice(index, 1)
+                    }
+                }).catch(error => {
+                    this.$snotify.error('Oops. Noe gikk galt. Vennligst prøv på nytt')
+                    console.log(error)
+                })
+            }
         }
     },
     computed: {

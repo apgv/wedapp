@@ -7,11 +7,16 @@
                        v-model="gift.checked"
                        @click="checkboxClicked"/>
 
-                <router-link v-if="authenticated"
-                             :to="`/giftaddedit/${gift.id}`"
-                             class="button is-text icon is-medium">
-                    <i class="fas fa-edit"></i>
-                </router-link>
+                <div v-if="authenticated">
+                    <router-link :to="`/giftaddedit/${gift.id}`"
+                                 class="button is-text icon is-medium">
+                        <i class="fas fa-edit"></i>
+                    </router-link>
+                    <a @click.prevent="deleteGift"
+                       class="button is-text icon is-medium">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
             </div>
             <div class="column is-2"
                  :class="cssClass"
@@ -46,6 +51,9 @@ export default {
         },
         checkboxClicked () {
             this.$nextTick(() => this.$emit('checkbokClicked'))
+        },
+        deleteGift () {
+            this.$emit('giftDeleted')
         }
     },
     computed: {

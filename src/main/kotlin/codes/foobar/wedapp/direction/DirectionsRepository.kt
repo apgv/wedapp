@@ -66,6 +66,16 @@ class DirectionsRepository(private val dbHelper: DbHelper) {
         })
     }
 
+    fun delete(id: Int) {
+        val dslContext = dbHelper.dslContext()
+
+        dslContext.transaction(TransactionalRunnable {
+            dslContext.deleteFrom(DIRECTION)
+                    .where(DIRECTION.ID.eq(id))
+                    .execute()
+        })
+    }
+
     private fun mapToDirection(it: Record): Direction {
         return Direction(
                 id = it[DIRECTION.ID],

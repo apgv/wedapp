@@ -116,7 +116,7 @@ fun main(args: Array<String>) {
 
         get("/gifts/:id", { request, _ ->
             verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
-            val id = request.params("id")
+            val id = request.params(":id")
             val jsonAdapter = JsonHelper.moshi.adapter(Gift::class.java)
             val gift = giftRepository.findById(id.toInt())
             jsonAdapter.toJson(gift)
@@ -162,6 +162,13 @@ fun main(args: Array<String>) {
             }
         })
 
+        delete("/gifts/:id", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val id = request.params(":id")
+            giftRepository.delete(id.toInt())
+            response.status(204)
+        })
+
         get("/directions", { _, _ ->
             val parameterizedType = Types.newParameterizedType(List::class.java, Direction::class.java)
             val jsonAdapter = JsonHelper.moshi.adapter<List<Direction>>(parameterizedType)
@@ -171,7 +178,7 @@ fun main(args: Array<String>) {
 
         get("/directions/:id", { request, _ ->
             verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
-            val id = request.params("id")
+            val id = request.params(":id")
             val jsonAdapter = JsonHelper.moshi.adapter(Direction::class.java)
             val direction = directionsRepository.findById(id.toInt())
             jsonAdapter.toJson(direction)
@@ -203,6 +210,13 @@ fun main(args: Array<String>) {
             }
         })
 
+        delete("/directions/:id", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val id = request.params(":id")
+            directionsRepository.delete(id.toInt())
+            response.status(204)
+        })
+
         get("/accommodations", { _, _ ->
             val parameterizedType = Types.newParameterizedType(List::class.java, Accommodation::class.java)
             val jsonAdapter = JsonHelper.moshi.adapter<List<Accommodation>>(parameterizedType)
@@ -212,7 +226,7 @@ fun main(args: Array<String>) {
 
         get("/accommodations/:id", { request, _ ->
             verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
-            val id = request.params("id")
+            val id = request.params(":id")
             val jsonAdapter = JsonHelper.moshi.adapter(Accommodation::class.java)
             val accommodation = accommodationRepository.findById(id.toInt())
             jsonAdapter.toJson(accommodation)
@@ -244,6 +258,13 @@ fun main(args: Array<String>) {
             }
         })
 
+        delete("/accommodations/:id", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val id = request.params(":id")
+            accommodationRepository.delete(id.toInt())
+            response.status(204)
+        })
+
         get("/contacts", { _, _ ->
             val parameterizedType = Types.newParameterizedType(List::class.java, Contact::class.java)
             val jsonAdapter = JsonHelper.moshi.adapter<List<Contact>>(parameterizedType)
@@ -253,7 +274,7 @@ fun main(args: Array<String>) {
 
         get("/contacts/:id", { request, _ ->
             verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
-            val id = request.params("id")
+            val id = request.params(":id")
             val jsonAdapter = JsonHelper.moshi.adapter(Contact::class.java)
             val contact = contactRepository.findById(id.toInt())
             jsonAdapter.toJson(contact)
@@ -283,6 +304,13 @@ fun main(args: Array<String>) {
                 }
                 else -> response.status(400)
             }
+        })
+
+        delete("/contacts/:id", { request, response ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val id = request.params(":id")
+            contactRepository.delete(id.toInt())
+            response.status(204)
         })
 
         get("/subjects/:email", { request, _ ->

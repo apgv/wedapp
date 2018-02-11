@@ -79,4 +79,14 @@ class ContactRepository(private val dbHelper: DbHelper) {
                     .execute()
         })
     }
+
+    fun delete(id: Int) {
+        val dslContext = dbHelper.dslContext()
+
+        dslContext.transaction(TransactionalRunnable {
+            dslContext.deleteFrom(CONTACT)
+                    .where(CONTACT.ID.eq(id))
+                    .execute()
+        })
+    }
 }

@@ -14,7 +14,8 @@
               :key="gift.id"
               :authenticated="authenticated"
               :gift.sync="gift"
-              v-on:checkbokClicked="saveGift(gift)">
+              v-on:checkbokClicked="saveGift(gift)"
+              v-on:giftDeleted="deleteGift(gift)">
         </gift>
 
         <info-message :show="!haveGifts"
@@ -59,6 +60,23 @@ export default {
                     this.$snotify.error('Oops. Noe gikk galt. Vennligst prøv på nytt')
                     console.log(error)
                 })
+        },
+        deleteGift (gift) {
+            if (this.authenticated) {
+                axios.delete(`/api/gifts/${gift.id}`, {
+                    headers: {'X-JWT': this.auth.jwt()}
+                }).then(() => {
+                    let index = this.gifts.indexOf(gift)
+
+                    if (index > -1) {
+                        this.$snotify.success('Gaveønske ble fjernet')
+                        this.gifts.splice(index, 1)
+                    }
+                }).catch(error => {
+                    this.$snotify.error('Oops. Noe gikk galt. Vennligst prøv på nytt')
+                    console.log(error)
+                })
+            }
         }
     },
     computed: {

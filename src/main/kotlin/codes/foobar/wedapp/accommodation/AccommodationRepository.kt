@@ -78,6 +78,16 @@ class AccommodationRepository(private val dbHelper: DbHelper) {
         })
     }
 
+    fun delete(id: Int) {
+        val dslContext = dbHelper.dslContext()
+
+        dslContext.transaction(TransactionalRunnable {
+            dslContext.deleteFrom(ACCOMMODATION)
+                    .where(ACCOMMODATION.ID.eq(id))
+                    .execute()
+        })
+    }
+
     private fun mapToAccommodations(record: Record) =
             Accommodation(
                     id = record[ACCOMMODATION.ID],

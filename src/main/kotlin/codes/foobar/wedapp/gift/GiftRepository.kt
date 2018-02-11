@@ -94,6 +94,16 @@ class GiftRepository(private val dbHelper: DbHelper) {
         })
     }
 
+    fun delete(id: Int) {
+        val dslContext = dbHelper.dslContext()
+
+        dslContext.transaction(TransactionalRunnable {
+            dslContext.deleteFrom(GIFT)
+                    .where(GIFT.ID.eq(id))
+                    .execute()
+        })
+    }
+
     private fun mapToGift(it: Record): Gift {
         return Gift(
                 id = it[GIFT.ID],

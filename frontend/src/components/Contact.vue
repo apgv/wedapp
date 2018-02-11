@@ -36,6 +36,10 @@
                                  class="button is-text icon is-medium">
                         <i class="fas fa-edit"></i>
                     </router-link>
+                    <a @click.prevent="deleteContact(contact)"
+                       class="button is-text icon is-medium">
+                        <i class="fas fa-trash"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -53,7 +57,7 @@ import InfoMessage from './InfoMessage'
 export default {
     components: {InfoMessage},
     name: 'contact',
-    props: ['authenticated'],
+    props: ['auth', 'authenticated'],
     data () {
         return {
             contacts: []
@@ -69,6 +73,23 @@ export default {
                     this.$snotify.error('Feil ved henting av data')
                     console.log(error)
                 })
+        },
+        deleteContact (contact) {
+            if (this.authenticated) {
+                axios.delete(`/api/contacts/${contact.id}`, {
+                    headers: {'X-JWT': this.auth.jwt()}
+                }).then(() => {
+                    let index = this.contacts.indexOf(contact)
+
+                    if (index > -1) {
+                        this.$snotify.success('Kontakt ble fjernet')
+                        this.contacts.splice(index, 1)
+                    }
+                }).catch(error => {
+                    this.$snotify.error('Oops. Noe gikk galt. Vennligst prøv på nytt')
+                    console.log(error)
+                })
+            }
         }
     },
     computed: {
