@@ -6,6 +6,7 @@ import Snotify, {SnotifyPosition} from 'vue-snotify'
 import Index from '@/components/Index'
 import IndexEditor from '@/components/IndexEditor'
 import GuestRegistration from '@/components/GuestRegistration'
+import Guests from '@/components/Guests'
 import GiftList from '@/components/GiftList'
 import GiftAddEdit from '@/components/GiftAddEdit'
 import Directions from '@/components/Directions'
@@ -17,6 +18,7 @@ import ContactAddEdit from '@/components/ContactAddEdit'
 import ExternalRouting from '@/components/ExternalRouting'
 import Auth0Callback from '@/components/Auth0Callback'
 import ReAuthenticate from '@/components/ReAuthenticate'
+import moment from 'moment'
 
 Vue.use(Router)
 Vue.use(VeeValidate)
@@ -27,6 +29,13 @@ Vue.use(Snotify, {
 })
 
 Validator.localize('nb_NO', nbNO)
+moment.locale('nb')
+
+Vue.filter('formatDate', (value) => {
+    if (value) {
+        return moment(value).format('L')
+    }
+})
 
 export default new Router({
     mode: 'history',
@@ -45,6 +54,11 @@ export default new Router({
             path: '/guestregistration',
             name: 'GuestRegistration',
             component: GuestRegistration
+        },
+        {
+            path: '/guests',
+            name: 'Guests',
+            component: Guests
         },
         {
             path: '/giftlist',

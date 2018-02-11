@@ -2,6 +2,14 @@
     <div>
         <h4 class="title is-4">Svar på invitasjonen</h4>
 
+        <div v-if="authenticated"
+             class="field">
+            <router-link :to="'/guests'"
+                         class="button is-link">
+                Se svar på invitasjonen
+            </router-link>
+        </div>
+
         <div class="columns">
             <div class="column">
                 <div class="field">
@@ -132,6 +140,7 @@ import axios from 'axios'
 
 export default {
     name: 'guest-registration',
+    props: ['authenticated'],
     data () {
         return {
             guest: {

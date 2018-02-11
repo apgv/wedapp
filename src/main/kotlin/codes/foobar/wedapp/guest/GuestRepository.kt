@@ -8,6 +8,29 @@ import org.jooq.TransactionalRunnable
 
 class GuestRepository(private val dbHelper: DbHelper) {
 
+    fun findAll(): List<Guest> {
+        return dbHelper.dslContext()
+                .select(
+                        GUEST.ID,
+                        GUEST.FULL_NAME,
+                        GUEST.ATTENDING,
+                        GUEST.NOTE,
+                        GUEST.LAST_UPDATED
+                )
+                .from(GUEST)
+                .orderBy(GUEST.ID)
+                .fetch()
+                .map {
+                    Guest(
+                            id = it[GUEST.ID],
+                            fullName = it[GUEST.FULL_NAME],
+                            attending = it[GUEST.ATTENDING],
+                            note = it[GUEST.NOTE],
+                            createdDate = it[GUEST.LAST_UPDATED].toZonedDateTime()
+                    )
+                }
+    }
+
     fun save(guestRegistrations: List<GuestRegistration>) {
         val dslContext = dbHelper.dslContext()
 

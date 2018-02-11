@@ -14,6 +14,7 @@ import codes.foobar.wedapp.direction.DirectionsRepository
 import codes.foobar.wedapp.gift.Gift
 import codes.foobar.wedapp.gift.GiftRegistration
 import codes.foobar.wedapp.gift.GiftRepository
+import codes.foobar.wedapp.guest.Guest
 import codes.foobar.wedapp.guest.GuestRegistration
 import codes.foobar.wedapp.guest.GuestRepository
 import codes.foobar.wedapp.helper.DbHelper
@@ -90,6 +91,14 @@ fun main(args: Array<String>) {
             } else {
                 response.status(400)
             }
+        })
+
+        get("/guests", { request, _ ->
+            verifyTokenAndCheckRoles(request, listOf(Role.USER), userRepository)
+            val parameterizedType = Types.newParameterizedType(List::class.java, Guest::class.java)
+            val jsonAdapter = JsonHelper.moshi.adapter<List<Guest>>(parameterizedType)
+            val guests = guestRepository.findAll()
+            jsonAdapter.toJson(guests)
         })
 
         post("/guests", { request, response ->
