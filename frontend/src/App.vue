@@ -10,6 +10,18 @@
         <router-view :auth="auth"
                      :authenticated="authenticated">
         </router-view>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="content has-text-centered">
+                    <p>
+                        <strong>wedapp</strong> by <a href="https://github.com/apgv">Andreas Pedro Garcia-Vedal</a>.
+                        The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                    </p>
+                </div>
+            </div>
+        </footer>
+
     </div>
 </template>
 
